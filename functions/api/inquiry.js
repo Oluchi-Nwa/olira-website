@@ -49,7 +49,6 @@ export async function onRequestGet({ env }) {
     token_found: Boolean(tok),
     token_looks_like_airtable_pat: /^pat[A-Za-z0-9]{10,}\./.test(tok),
     variable_names: names,
-    airtable_columns: tok ? await tableFieldNames(env.AIRTABLE_BASE_ID || DEFAULT_BASE, env.AIRTABLE_TABLE || DEFAULT_TABLE, { authorization: `Bearer ${tok}` }) : null,
   }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
 }
 
