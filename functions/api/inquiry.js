@@ -8,7 +8,7 @@
 //   ALLOWED_ORIGIN    defaults to https://www.oliragroup.com (apex is allowed too)
 
 const DEFAULT_BASE = "appYu5L6nbc3oPR2S";
-const DEFAULT_TABLE = "Olira Group | CRM & Business Development";
+const DEFAULT_TABLE = "tblX4RCvpOKtFbqUd"; // table ID inside the "Olira Group | CRM & Business Development" base
 
 // form key -> Airtable column, required?
 const FIELDS = {
@@ -42,7 +42,7 @@ export async function onRequestGet({ env }) {
   const names = Object.keys(env || {}).filter((k) => typeof env[k] === "string");
   const tok = findToken(env);
   return new Response(JSON.stringify({
-    connector: "olira-inquiry v6",
+    connector: "olira-inquiry v7",
     deployed_commit: String(env.CF_PAGES_COMMIT_SHA || "").slice(0, 7),
     token_length: tok.length,
     raw_value_length: typeof env.AIRTABLE_TOKEN === "string" ? env.AIRTABLE_TOKEN.length : null,
