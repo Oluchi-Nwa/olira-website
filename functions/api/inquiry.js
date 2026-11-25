@@ -42,7 +42,7 @@ export async function onRequestGet({ env }) {
   const names = Object.keys(env || {}).filter((k) => typeof env[k] === "string");
   const tok = findToken(env);
   return new Response(JSON.stringify({
-    connector: "olira-inquiry v5",
+    connector: "olira-inquiry v6",
     deployed_commit: String(env.CF_PAGES_COMMIT_SHA || "").slice(0, 7),
     token_length: tok.length,
     raw_value_length: typeof env.AIRTABLE_TOKEN === "string" ? env.AIRTABLE_TOKEN.length : null,
@@ -88,7 +88,7 @@ export async function onRequestPost(ctx) {
     return await handlePost(ctx);
   } catch (e) {
     console.error("Inquiry exception", e);
-    return json({ ok: false, error: "exception", message: String((e && e.message) || e).slice(0, 300) }, 500);
+    return json({ ok: false, error: "exception", message: String((e && e.message) || e).slice(0, 300) }, 200);
   }
 }
 
@@ -142,7 +142,7 @@ async function handlePost({ request, env }) {
     const type = (err && (err.type || err)) || "unknown";
     const message = (err && err.message) || "";
     console.error("Airtable error", res.status, type, message);
-    return json({ ok: false, error: "airtable", status: res.status, type: String(type), message: String(message).slice(0, 300) }, 502, origin);
+    return json({ ok: false, error: "airtable", status: res.status, type: String(type), message: String(message).slice(0, 300) }, 200, origin);
   }
   return json({ ok: true }, 200, origin);
 }
