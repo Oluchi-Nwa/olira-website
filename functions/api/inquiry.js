@@ -42,7 +42,7 @@ export async function onRequestGet({ env }) {
   const names = Object.keys(env || {}).filter((k) => typeof env[k] === "string");
   const tok = findToken(env);
   return new Response(JSON.stringify({
-    connector: "olira-inquiry v4",
+    connector: "olira-inquiry v5",
     deployed_commit: String(env.CF_PAGES_COMMIT_SHA || "").slice(0, 7),
     token_length: tok.length,
     raw_value_length: typeof env.AIRTABLE_TOKEN === "string" ? env.AIRTABLE_TOKEN.length : null,
@@ -83,7 +83,16 @@ export async function onRequestOptions({ request, env }) {
   });
 }
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost(ctx) {
+  try {
+    return await handlePost(ctx);
+  } catch (e) {
+    console.error("Inquiry exception", e);
+    return json({ ok: false, error: "exception", message: String((e && e.message) || e).slice(0, 300) }, 500);
+  }
+}
+
+async function handlePost({ request, env }) {
   const origin = allowedOrigin(request, env);
   if (!origin && request.headers.get("origin")) return json({ ok: false, error: "origin" }, 403);
   const TOKEN = findToken(env);

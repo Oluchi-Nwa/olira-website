@@ -1734,11 +1734,11 @@ body{margin:0}
     [].forEach.call(form.elements,function(el){if(el.name)data[el.name]=el.value});
     btn.disabled=true;btn.textContent="Sending…";
     fetch("/api/inquiry",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)})
-      .then(function(r){return r.json().catch(function(){return {ok:false}}).then(function(j){if(!r.ok||!j.ok)throw j;return j})})
+      .then(function(r){return r.json().catch(function(){return {ok:false,error:"network",status:r.status,message:(r.headers.get("content-type")||"no content type")}}).then(function(j){if(!r.ok||!j.ok)throw j;return j})})
       .then(function(){form.reset();say("<b>Thank you.</b> Your inquiry was received. We will follow up to schedule a discovery call.","good");btn.textContent="Sent"})
       .catch(function(j){btn.disabled=false;btn.textContent="Send inquiry";
         j=j||{};var code=j.error||"network";if(j.status)code+=" "+j.status;if(j.type)code+=" "+j.type;
-        var why={not_configured:"The form's Airtable connection is not set up yet.",airtable:"Airtable did not accept the entry.",missing:"Some required answers are missing.",origin:"This page is not allowed to send to the form.",too_fast:"Please take a moment and try again.",network:"The form service could not be reached."}[j.error||"network"]||"";
+        var why={not_configured:"The form's Airtable connection is not set up yet.",airtable:"Airtable did not accept the entry.",missing:"Some required answers are missing.",origin:"This page is not allowed to send to the form.",too_fast:"Please take a moment and try again.",network:"The form service could not be reached.",exception:"The form service hit an error."}[j.error||"network"]||"";
         var esc=function(t){return String(t).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})};
         say('Your inquiry could not be sent from this page. Please use our <a href="'+AT+'" target="_blank" rel="noopener">backup inquiry form</a> or email <a href="mailto:contact@oliragroup.com">contact@oliragroup.com</a>.<br><span class="small">'+esc(why)+' Code: '+esc(code)+(j.message?' · '+esc(j.message):'')+'</span>',"warn")});
   });
