@@ -42,7 +42,10 @@ export async function onRequestGet({ env }) {
   const names = Object.keys(env || {}).filter((k) => typeof env[k] === "string");
   const tok = findToken(env);
   return new Response(JSON.stringify({
-    connector: "olira-inquiry v3",
+    connector: "olira-inquiry v4",
+    deployed_commit: String(env.CF_PAGES_COMMIT_SHA || "").slice(0, 7),
+    token_length: tok.length,
+    raw_value_length: typeof env.AIRTABLE_TOKEN === "string" ? env.AIRTABLE_TOKEN.length : null,
     token_found: Boolean(tok),
     token_looks_like_airtable_pat: /^pat[A-Za-z0-9]{10,}\./.test(tok),
     variable_names: names,
