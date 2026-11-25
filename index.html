@@ -1,0 +1,1750 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Olira Group</title>
+<link rel="icon" type="image/png" href="logo-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a bright, single light theme by design (the brand asked for a light site). Bright ivory ground, white panels, pale teal and gold tints for bands; navy reserved for type. One 1180px measure; views switched by hash. */
+:root{
+  --bg:#FCFBF8;        /* bright ivory page */
+  --surface:#FFFFFF;   /* panels, cards, forms */
+  --tint-teal:#EEF5F5; /* soft band */
+  --tint-gold:#FBF5E8; /* warm band */
+  --navy:#0B2034;      /* logo navy, headings */
+  --ink:#343A40;       /* body text (brand charcoal) */
+  --ink-2:#5B6570;     /* secondary text */
+  --rule:#E7E1D4;      /* warm hairline */
+  --teal:#0B4D57;      /* logo teal, links and primary buttons */
+  --gold:#C9952A;      /* logo gold, rules and highlights */
+  --gold-ink:#8A6414;  /* gold dark enough for text on light */
+  --ph-bg:#FBF0D9; --ph-ink:#7A5A23;
+  --f-display:"Libre Baskerville", Georgia, "Times New Roman", serif;
+  --f-body:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --r:6px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--surface)}
+a{color:var(--teal)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:12px;top:12px;background:var(--surface);padding:10px 14px;z-index:70}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+@media (max-width:520px){.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;color:var(--navy);text-wrap:balance;margin:0;line-height:1.18}
+h1{font-size:clamp(2.2rem,4.8vw,3.7rem)}
+h2{font-size:clamp(1.65rem,2.9vw,2.35rem)}
+h3{font-size:1.2rem;line-height:1.3}
+p{margin:0}
+.eyebrow{font-size:.74rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.lede{font-size:1.1rem;color:var(--ink-2);max-width:62ch}
+.muted{color:var(--ink-2)}
+.small{font-size:.85rem;color:var(--ink-2)}
+.goldtext{color:var(--gold)}
+.ph{background:var(--ph-bg);color:var(--ph-ink);border-bottom:1px dashed var(--ph-ink);padding:0 .3em;border-radius:2px;font-weight:600;font-family:var(--f-body);font-size:.95em}
+.rule{width:56px;height:2px;background:var(--gold)}
+
+/* Masthead */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(255,255,255,.96);border-bottom:1px solid var(--rule);backdrop-filter:saturate(1.2) blur(6px)}
+header.top .wrap{display:flex;align-items:center;gap:20px;min-height:78px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto;line-height:0;text-decoration:none}
+.brand .mk{height:44px;width:auto}
+.brand .wd{height:27px;width:auto}
+nav.main{display:flex;gap:2px;flex-wrap:wrap}
+nav.main a{color:var(--ink-2);text-decoration:none;font-size:.9rem;font-weight:500;padding:8px 11px}
+nav.main a:hover{color:var(--navy)}
+nav.main a[aria-current="page"]{color:var(--navy);box-shadow:inset 0 -2px 0 var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 .92rem/1 var(--f-body);padding:14px 22px;border-radius:var(--r);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-teal:hover{background:#093f47}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.btn-ghost{border-color:var(--teal);color:var(--teal);background:transparent}
+@media (max-width:900px){header.top .cta-top{display:none} nav.main{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:8px} nav.main a{white-space:nowrap}}
+
+.editbar{background:var(--ph-bg);color:var(--ph-ink);font-size:.82rem;padding-block:8px}
+
+/* Views */
+.view{display:none}
+.view.on{display:block}
+section{padding-block:clamp(52px,7vw,92px)}
+.band-white{background:var(--surface);border-block:1px solid var(--rule)}
+.band-teal{background:var(--tint-teal)}
+.band-gold{background:var(--tint-gold)}
+.sec-head{display:grid;gap:14px;margin-bottom:40px;max-width:760px}
+
+/* Hero: bright, with a soft glow from the logo's gold and teal */
+.hero{background:radial-gradient(900px 420px at 88% 0%,rgba(201,149,42,.14),transparent 70%),radial-gradient(700px 380px at 0% 100%,rgba(11,77,87,.08),transparent 70%),var(--surface);border-bottom:1px solid var(--rule)}
+.page-head{background:linear-gradient(180deg,var(--surface),var(--bg));border-bottom:1px solid var(--rule);padding-block:clamp(44px,6vw,76px)}
+.wrap.sec-head{max-width:1180px}
+.page-head h1{max-width:22ch;font-size:clamp(2rem,4vw,3rem)}
+.hero-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:56px;align-items:center}
+.hero-grid>*{min-width:0}
+.hero .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.triad{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:8px 28px;box-shadow:0 18px 40px -28px rgba(11,32,52,.35)}
+.triad div{padding-block:18px;border-bottom:1px solid var(--rule);display:grid;gap:4px}
+.triad div:last-child{border-bottom:0}
+.triad b{font-family:var(--f-display);font-weight:400;font-size:1.3rem;color:var(--navy)}
+.triad b::before{content:"";display:inline-block;width:8px;height:8px;background:var(--gold);transform:rotate(45deg);margin-right:12px;vertical-align:middle}
+.triad span{font-size:.93rem;color:var(--ink-2)}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr;gap:36px}}
+
+/* Capability cards */
+.caps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.cap{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:10px;min-width:0;border-top:3px solid var(--gold)}
+.cap p{color:var(--ink-2);font-size:.94rem}
+.cap .del{font-size:.88rem;color:var(--ink)}
+.cap .del b{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:2px}
+.cap a.more{margin-top:auto;font-weight:600;text-decoration:none;font-size:.9rem}
+.cap.spec{background:var(--tint-teal);border-top-color:var(--teal)}
+@media (max-width:980px){.caps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.caps{grid-template-columns:1fr}}
+
+.split{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start}
+.split>*{min-width:0}
+@media (max-width:860px){.split{grid-template-columns:1fr;gap:30px}}
+
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.cols>div{display:grid;gap:8px;align-content:start;min-width:0;border-top:2px solid var(--gold);padding-top:16px}
+.cols b{font-size:1rem;color:var(--navy)}
+.cols p{font-size:.93rem;color:var(--ink-2)}
+@media (max-width:900px){.cols{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.cols{grid-template-columns:1fr}}
+
+.industries{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.industries span{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:14px 16px;font-weight:500;color:var(--navy);font-size:.95rem}
+@media (max-width:640px){.industries{grid-template-columns:1fr 1fr}}
+
+/* Approach: a real five-step sequence */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:22px}
+.step{display:grid;gap:6px;align-content:start;min-width:0;border-top:2px solid var(--gold);padding-top:14px}
+.step .n{font-family:var(--f-display);font-size:1.5rem;color:var(--gold-ink)}
+.step b{color:var(--navy);font-size:1.05rem;font-family:var(--f-display);font-weight:400}
+.step p{font-size:.9rem;color:var(--ink-2)}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* Offers */
+.offers{display:grid;border-top:1px solid var(--rule)}
+.offer{display:grid;grid-template-columns:240px 1fr 1fr;gap:28px;padding-block:26px;border-bottom:1px solid var(--rule)}
+.offer>*{min-width:0}
+.offer .k{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
+.offer p{font-size:.93rem;color:var(--ink-2)}
+@media (max-width:860px){.offer{grid-template-columns:1fr;gap:10px}}
+
+/* Tables */
+.table-wrap{overflow-x:auto}
+table.t{border-collapse:collapse;width:100%;font-size:.93rem;background:var(--surface)}
+table.t th,table.t td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+table.t th{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+table.t td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600;color:var(--navy)}
+.weight{display:inline-block;height:8px;background:var(--teal);border-radius:2px;vertical-align:middle;margin-right:8px}
+
+/* Demonstration work */
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.case{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.case .badge{align-self:flex-start;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);background:var(--tint-teal);padding:5px 9px;border-radius:3px}
+.case p{font-size:.92rem;color:var(--ink-2)}
+.case .st{margin-top:auto;font-size:.82rem;color:var(--ink-2);border-top:1px solid var(--rule);padding-top:12px}
+.minibars{height:84px;display:flex;align-items:flex-end;gap:10px;padding:12px;background:var(--tint-teal);border-radius:4px}
+.minibars i{flex:1;background:var(--teal);border-radius:2px 2px 0 0}
+.minibars i:nth-child(even){background:var(--gold)}
+@media (max-width:900px){.cases{grid-template-columns:1fr}}
+
+/* Founder */
+.founder{display:grid;grid-template-columns:minmax(0,400px) 1fr;gap:56px;align-items:start}
+.founder>*{min-width:0}
+.headshot{position:relative}
+.headshot img{display:block;width:100%;max-width:100%;height:auto;aspect-ratio:720/898;object-fit:cover;border-radius:var(--r)}
+.headshot::after{content:"";position:absolute;inset:16px -16px -16px 16px;border:2px solid var(--gold);border-radius:var(--r);z-index:-1}
+.bio{display:grid;gap:16px;max-width:68ch}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-block:8px}
+.stat{border-top:2px solid var(--gold);padding-top:12px;display:grid;gap:2px}
+.stat strong{font-family:var(--f-display);font-weight:400;font-size:2.2rem;color:var(--navy);line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:.86rem;color:var(--ink-2)}
+.creds{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.creds .card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:24px;display:grid;gap:10px}
+.creds ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.creds li{font-size:.93rem;padding-left:18px;position:relative}
+.creds li::before{content:"";position:absolute;left:0;top:.6em;width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+@media (max-width:860px){.founder{grid-template-columns:1fr}.headshot{max-width:340px}.creds{grid-template-columns:1fr}}
+@media (max-width:480px){.stats{grid-template-columns:1fr 1fr 1fr;gap:10px}.stat strong{font-size:1.6rem}.headshot::after{inset:10px -8px -10px 10px}}
+.values{display:flex;flex-wrap:wrap;gap:10px}
+.values span{background:var(--surface);border:1px solid var(--gold);color:var(--navy);padding:8px 14px;font-size:.9rem;border-radius:999px}
+
+/* Panels and forms */
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:clamp(22px,3vw,34px);display:grid;gap:18px;min-width:0}
+form{display:grid;gap:16px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:560px){.frow{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-size:.84rem;font-weight:600;color:var(--ink-2)}
+label.check{display:flex;gap:10px;align-items:flex-start;font-weight:500}
+label.check input{width:auto;margin-top:4px;accent-color:var(--teal)}
+input,select,textarea{font:400 1rem/1.4 var(--f-body);color:var(--ink);background:var(--bg);border:1px solid #D6CFBF;border-radius:var(--r);padding:11px 12px;width:100%}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--teal);outline-offset:0;border-color:transparent}
+textarea{min-height:100px;resize:vertical}
+.notice{font-size:.85rem;background:var(--tint-teal);color:var(--ink);padding:12px 14px;border-radius:var(--r)}
+.ok{background:var(--tint-teal);color:var(--ink);padding:14px 16px;font-size:.92rem;border-radius:var(--r)}
+dl.facts{margin:0;display:grid;gap:14px}
+dl.facts dt{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+dl.facts dd{margin:3px 0 0}
+ul.ticks{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+ul.ticks li{padding-left:22px;position:relative}
+ul.ticks li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:6px;border-left:2px solid var(--teal);border-bottom:2px solid var(--teal);transform:rotate(-45deg)}
+details{border-bottom:1px solid var(--rule);padding-block:16px}
+summary{cursor:pointer;font-weight:600;color:var(--navy)}
+details p{margin-top:10px;color:var(--ink-2);max-width:75ch}
+
+footer{background:var(--tint-gold);border-top:1px solid var(--rule);color:var(--ink-2);font-size:.88rem;padding-block:48px}
+footer .wrap{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:36px}
+footer h4{margin:0 0 10px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);font-weight:600}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+footer a{color:var(--teal)}
+footer .logo img{width:230px;max-width:100%;height:auto}
+footer .tag{font-family:var(--f-display);font-style:italic;color:var(--navy);font-size:1.05rem;max-width:32ch;margin-top:12px}
+footer .legal{grid-column:1/-1;border-top:1px solid var(--rule);padding-top:18px;font-size:.8rem;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr}}
+
+/* ===== Olira orbit layer: art drawn from the logo (gold swoosh orbit, four-point star, navy O) ===== */
+:root{
+  --star:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 0C10.9 6.2 13.8 9.1 20 10C13.8 10.9 10.9 13.8 10 20C9.1 13.8 6.2 10.9 0 10C6.2 9.1 9.1 6.2 10 0Z'/%3E%3C/svg%3E");
+  --glow-gold:rgba(201,149,42,.18);
+}
+.editbar{background:var(--tint-teal);color:var(--teal)}
+.art{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.art svg{position:absolute;inset:0;width:100%;height:100%}
+.hero,.page-head,footer,.band-teal{position:relative;overflow:hidden}
+.hero>.wrap,.page-head>.wrap,footer>.wrap,.band-teal>.wrap{position:relative;z-index:1}
+
+/* Four-point star from the logo replaces the generic diamonds */
+.eyebrow{display:inline-flex;align-items:center;gap:.6em}
+.eyebrow::before{content:"";width:.95em;height:.95em;flex:none;background:var(--gold);-webkit-mask:var(--star) center/contain no-repeat;mask:var(--star) center/contain no-repeat}
+.creds li::before{width:9px;height:9px;top:.5em;transform:none;-webkit-mask:var(--star) center/contain no-repeat;mask:var(--star) center/contain no-repeat}
+
+/* Hero: words left, the orbiting globe right */
+.hero{padding-block:clamp(40px,5vw,72px)}
+.hero-grid{grid-template-columns:1.05fr 1fr;gap:40px}
+.hero h1 .goldtext{font-style:italic}
+.orbit{display:grid;gap:14px;justify-items:center}
+.orbit-stage{position:relative;width:100%;max-width:540px;aspect-ratio:1/1;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.orbit-stage.drag{cursor:grabbing}
+.orbit-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.sat{position:absolute;left:0;top:0;transform:translate(-50%,-50%);font:600 .78rem/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--navy);background:rgba(255,255,255,.92);border:1px solid var(--rule);border-radius:999px;padding:8px 12px 8px 10px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;box-shadow:0 8px 20px -14px rgba(11,32,52,.5);transition:opacity .3s,border-color .2s,background .2s;white-space:nowrap}
+.sat::before{content:"";width:11px;height:11px;background:var(--gold);-webkit-mask:var(--star) center/contain no-repeat;mask:var(--star) center/contain no-repeat}
+.sat[aria-pressed="true"]{border-color:var(--gold);background:var(--tint-gold)}
+.sat.back{opacity:.5}
+.orbit-cap{width:100%;max-width:540px;background:rgba(255,255,255,.9);border:1px solid var(--rule);border-left:3px solid var(--gold);border-radius:var(--r);padding:16px 20px;display:grid;gap:4px;min-height:86px}
+.orbit-cap b{font-family:var(--f-display);font-weight:400;font-size:1.25rem;color:var(--navy)}
+.orbit-cap span{font-size:.93rem;color:var(--ink-2)}
+.orbit-hint{font-size:.78rem;color:var(--ink-2);letter-spacing:.02em}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr;gap:28px}.orbit-stage{max-width:420px}}
+@media (max-width:480px){.sat{font-size:.68rem;padding:6px 9px 6px 8px}}
+
+/* Cards lean toward the pointer, with a soft gold light where it rests */
+.cap,.case,.creds .card{position:relative;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--lift,0px))}
+.cap::after,.case::after,.creds .card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(320px circle at var(--mx,50%) var(--my,0%),var(--glow-gold),transparent 60%)}
+.cap.lit,.case.lit,.creds .card.lit{--lift:-4px;box-shadow:0 24px 44px -30px rgba(11,32,52,.55)}
+.cap.lit::after,.case.lit::after,.creds .card.lit::after{opacity:1}
+
+/* Approach: the steps sit on one orbit line, and a star travels it */
+.steps{position:relative;padding-top:8px}
+.step{border-top:0;padding-top:22px;position:relative}
+.step .n{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--surface);border:1.5px solid var(--gold);font-size:1.05rem}
+.steps::before{content:"";position:absolute;left:0;right:0;top:51px;height:2px;background:linear-gradient(90deg,var(--gold),rgba(201,149,42,.25));z-index:0}
+.step>*{position:relative;z-index:1}
+.steps::after{content:"";position:absolute;top:43px;left:0;width:18px;height:18px;background:var(--gold);-webkit-mask:var(--star) center/contain no-repeat;mask:var(--star) center/contain no-repeat;animation:travel 11s cubic-bezier(.45,0,.55,1) infinite alternate;z-index:2;filter:drop-shadow(0 0 6px rgba(201,149,42,.7))}
+@keyframes travel{to{left:calc(100% - 18px)}}
+@media (max-width:900px){.steps::before,.steps::after{display:none}}
+
+/* Founder portrait: a gold orbit passes around it like the swoosh around the O */
+.headshot{isolation:isolate}
+.headshot::after{inset:-5% -9% -3% -7%;border:1.5px solid var(--gold);border-radius:50%;transform:rotate(-14deg);z-index:2;border-left-color:transparent;border-bottom-color:transparent}
+.headshot::before{content:"";position:absolute;right:-4%;top:6%;width:26px;height:26px;background:var(--gold);-webkit-mask:var(--star) center/contain no-repeat;mask:var(--star) center/contain no-repeat;z-index:3;filter:drop-shadow(0 0 6px rgba(201,149,42,.6))}
+@media (max-width:480px){.headshot::after{inset:-4% -6% -2% -5%}}
+
+/* Location intelligence: sample market scan */
+.scan{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;align-items:stretch}
+.scan>*{min-width:0}
+.scan-map{position:relative;background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;aspect-ratio:16/10;cursor:crosshair;touch-action:none}
+.scan-map canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.scan-map:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.scan-side{display:grid;gap:14px;align-content:start}
+.read{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.read div{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:14px;display:grid;gap:2px}
+.read strong{font-family:var(--f-display);font-weight:400;font-size:1.6rem;color:var(--navy);font-variant-numeric:tabular-nums;line-height:1.15}
+.read span{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.meter{height:10px;border-radius:999px;background:var(--tint-teal);overflow:hidden}
+.meter i{display:block;height:100%;width:50%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:inherit;transition:width .25s}
+.legend{display:flex;align-items:center;gap:10px;font-size:.8rem;color:var(--ink-2);flex-wrap:wrap}
+.legend .ramp{width:120px;height:8px;border-radius:999px;background:linear-gradient(90deg,#F4F8F8,#9CC3C4,#0B4D57,#0B2034)}
+.legend .dot{width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--navy);display:inline-block}
+.verdict{font-size:.95rem;color:var(--ink)}
+@media (max-width:860px){.scan{grid-template-columns:1fr}}
+@media (max-width:420px){.read{grid-template-columns:1fr 1fr 1fr;gap:8px}.read strong{font-size:1.25rem}.read div{padding:10px}}
+
+[hidden]{display:none!important}
+/* ===== Sample deliverables ===== */
+.smp{display:grid;grid-template-columns:250px 1fr;gap:28px;align-items:start}
+.smp>*{min-width:0}
+.smp-tabs{display:grid;gap:6px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 96px)}
+.smp-tabs button{all:unset;box-sizing:border-box;display:grid;gap:2px;padding:12px 14px 12px 16px;border-radius:var(--r);cursor:pointer;border:1px solid transparent;border-left:3px solid transparent}
+.smp-tabs button b{font-weight:600;color:var(--navy);font-size:.95rem}
+.smp-tabs button span{font-size:.76rem;color:var(--ink-2)}
+.smp-tabs button:hover{background:var(--bg)}
+.smp-tabs button[aria-selected="true"]{background:var(--tint-gold);border-color:var(--rule);border-left-color:var(--gold)}
+.smp-tabs button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+@media (max-width:900px){.smp{grid-template-columns:1fr}.smp-tabs{position:static;grid-auto-flow:column;grid-auto-columns:max-content;overflow-x:auto;padding-bottom:6px}.smp-tabs button{border-left-width:1px;border-bottom:3px solid transparent}.smp-tabs button[aria-selected="true"]{border-left-color:var(--rule);border-bottom-color:var(--gold)}}
+.doc{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:clamp(18px,3vw,32px);display:grid;gap:18px;box-shadow:0 30px 60px -44px rgba(11,32,52,.45);min-width:0}
+.doc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--navy);padding-bottom:14px}
+.doc-k{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
+.doc h3{font-size:1.35rem}
+.doc-p{color:var(--ink-2);font-size:.95rem;max-width:70ch}
+.tag-s{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);background:var(--tint-gold);padding:5px 9px;border-radius:3px;white-space:nowrap}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{font:600 .82rem/1 var(--f-body);padding:9px 13px;border-radius:999px;border:1px solid var(--rule);background:var(--surface);color:var(--ink-2);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+
+/* needs matrix */
+.needs{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;align-items:start}
+.needs>*{min-width:0}
+.mtx{width:100%;height:auto;display:block}
+.mtx text{font-family:var(--f-body);fill:var(--ink-2)}
+.mtx .pt{cursor:pointer}
+.mtx .pt:focus{outline:none}
+.mtx .pt:focus-visible circle{stroke:var(--gold);stroke-width:3}
+.need-card{background:var(--bg);border:1px solid var(--rule);border-radius:var(--r);padding:18px;display:grid;gap:10px}
+.need-card h4{margin:0;font-family:var(--f-display);font-weight:400;font-size:1.15rem;color:var(--navy)}
+.need-card dl{margin:0;display:grid;gap:8px}
+.need-card dt{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+.need-card dd{margin:2px 0 0;font-size:.92rem}
+.pill{display:inline-block;font-size:.72rem;font-weight:600;padding:4px 9px;border-radius:999px}
+.pill.q{background:#E3F1EC;color:#1D6B4F}.pill.m{background:var(--tint-gold);color:var(--gold-ink)}.pill.l{background:#EEF0F3;color:#4C5866}
+@media (max-width:760px){.needs{grid-template-columns:1fr}}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:130px repeat(3,minmax(170px,1fr));gap:8px;min-width:660px}
+.road .h{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);padding:6px 4px;border-bottom:2px solid var(--gold)}
+.road .lane{font-weight:600;color:var(--navy);font-size:.9rem;padding:12px 4px;border-top:1px solid var(--rule)}
+.road .cell{display:grid;gap:6px;align-content:start;padding-block:8px;border-top:1px solid var(--rule)}
+.road .it{background:var(--tint-teal);border-radius:4px;padding:8px 10px;font-size:.84rem;color:var(--ink);line-height:1.4}
+.road .it.ms{background:var(--tint-gold);border:1px solid rgba(201,149,42,.45);display:flex;gap:8px}
+.ms-ico{display:inline-block;width:12px;height:12px;flex:none;margin-top:3px;background:var(--gold);-webkit-mask:var(--star) center/contain no-repeat;mask:var(--star) center/contain no-repeat;vertical-align:-1px}
+
+/* RACI */
+table.raci{border-collapse:separate;border-spacing:0;width:100%;min-width:640px;font-size:.88rem}
+.raci th,.raci td{padding:10px 8px;border-bottom:1px solid var(--rule);text-align:center}
+.raci th:first-child,.raci td:first-child{text-align:left;color:var(--ink)}
+.raci thead th button{all:unset;cursor:pointer;font-size:.74rem;font-weight:600;letter-spacing:.04em;color:var(--navy);padding:6px 8px;border-radius:4px;line-height:1.25}
+.raci thead th button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.raci thead th button:focus-visible{outline:3px solid var(--gold)}
+.raci td.on{background:var(--tint-gold)}
+.raci tr.dim td{opacity:.35}
+.rc{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;font-style:normal;font-weight:700;font-size:.78rem}
+.rc.R{background:var(--teal);color:#fff}.rc.A{background:var(--navy);color:#fff}.rc.C{background:var(--tint-teal);color:var(--teal);border:1px solid #BFD8D9}.rc.I{background:var(--surface);color:var(--ink-2);border:1px solid var(--rule)}
+.raci-key{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-2)}
+.raci-key span{display:inline-flex;align-items:center;gap:6px}
+.raci-key .rc{width:22px;height:22px;font-size:.7rem}
+
+/* workflow */
+.flow{position:relative;display:grid;grid-template-columns:110px repeat(5,minmax(120px,1fr));min-width:760px}
+.flow .ln{font-size:.74rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);display:flex;align-items:center;padding:10px 8px;background:var(--tint-teal);border-bottom:1px solid var(--surface)}
+.flow .cl{border-bottom:1px dashed var(--rule);min-height:84px;display:grid;place-items:center;padding:10px 8px;position:relative;z-index:1}
+.flow .st{background:var(--surface);border:1.5px solid var(--navy);border-radius:6px;padding:8px 10px;font-size:.8rem;line-height:1.35;color:var(--ink);text-align:center;max-width:150px;position:relative}
+.flow .st.dec{border-color:var(--teal);background:var(--tint-teal)}
+.flow .st.pain{border-color:#B3472F}
+.flow .st.win{border-color:var(--gold);background:var(--tint-gold)}
+.flow .st .flag{position:absolute;top:-9px;right:-9px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:.7rem;font-weight:700;color:#fff;background:#B3472F}
+.flow .st.win .flag{background:var(--gold);color:var(--navy)}
+.flow svg.arrows{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible}
+.flow-note{font-size:.92rem;color:var(--ink);background:var(--bg);border-left:3px solid var(--gold);padding:12px 14px;border-radius:4px}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{border:1px solid var(--rule);border-radius:var(--r);padding:14px;display:grid;gap:6px;min-width:0}
+.kpi span{font-size:.74rem;color:var(--ink-2);font-weight:600;letter-spacing:.04em}
+.kpi strong{font-family:var(--f-display);font-weight:400;font-size:1.9rem;color:var(--navy);font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi .tg{font-size:.78rem;display:flex;align-items:center;gap:6px;color:var(--ink-2)}
+.kpi .dot{width:9px;height:9px;border-radius:50%}
+.kpi .bar{height:6px;background:var(--bg);border-radius:999px;overflow:hidden}
+.kpi .bar i{display:block;height:100%;border-radius:inherit;transition:width .3s}
+.good{background:#2E8B67}.warn{background:var(--gold)}.bad{background:#B3472F}
+@media (max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
+table.kdict{font-size:.85rem;min-width:620px}
+
+/* portfolio */
+table.port{min-width:700px;font-size:.88rem}
+.port .st-p{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.78rem;padding:4px 9px;border-radius:999px;white-space:nowrap}
+.st-p.g{background:#E3F1EC;color:#1D6B4F}.st-p.y{background:var(--tint-gold);color:var(--gold-ink)}.st-p.r{background:#F6E5E0;color:#8E3420}
+.port .pc{display:flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}
+.port .pc i{display:block;height:6px;width:80px;background:var(--bg);border-radius:999px;overflow:hidden;position:relative}
+.port .pc i b{position:absolute;inset:0 auto 0 0;background:var(--teal);border-radius:inherit}
+
+/* gantt */
+.gantt{display:grid;grid-template-columns:200px 1fr;min-width:760px;font-size:.84rem;position:relative}
+.g-weeks{display:grid;grid-template-columns:repeat(12,1fr);border-bottom:2px solid var(--gold)}
+.g-weeks span{font-size:.7rem;font-weight:600;color:var(--ink-2);text-align:center;padding:6px 0;letter-spacing:.06em}
+.g-ph{grid-column:1/-1;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);padding:12px 0 4px;border-bottom:1px solid var(--rule)}
+.g-name{padding:8px 8px 8px 0;border-bottom:1px solid var(--rule);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g-track{position:relative;border-bottom:1px solid var(--rule);background:repeating-linear-gradient(90deg,transparent 0,transparent calc(100%/12 - 1px),var(--rule) calc(100%/12 - 1px),var(--rule) calc(100%/12))}
+.g-bar{position:absolute;top:8px;bottom:8px;border-radius:4px;background:var(--teal);cursor:pointer;border:0;padding:0;overflow:hidden}
+.g-bar i{position:absolute;inset:0 auto 0 0;background:rgba(255,255,255,.28)}
+.g-bar.done{background:#7FA9AC}
+.g-bar.ms{background:transparent;width:22px!important;margin-left:-11px}
+.g-bar.ms::before{content:"";position:absolute;inset:0;background:var(--gold);-webkit-mask:var(--star) center/contain no-repeat;mask:var(--star) center/contain no-repeat}
+.g-bar:focus-visible,.g-bar:hover{outline:3px solid var(--gold);outline-offset:1px}
+.g-today{position:absolute;top:0;bottom:0;width:2px;background:#B3472F;pointer-events:none;z-index:2}
+.g-today span{position:absolute;top:-2px;left:4px;font-size:.66rem;font-weight:700;color:#8E3420;white-space:nowrap;letter-spacing:.06em}
+.gantt-tip{font-size:.9rem;background:var(--bg);border-left:3px solid var(--gold);padding:10px 14px;border-radius:4px}
+
+/* coming soon */
+.soon{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);background:var(--tint-gold);border:1px solid rgba(201,149,42,.5);padding:7px 12px;border-radius:999px}
+.soon::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(201,149,42,.2)}
+.expect{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.expect>div{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:22px;display:grid;gap:10px;align-content:start;min-width:0}
+.expect h3{font-size:1.1rem}
+@media (max-width:860px){.expect{grid-template-columns:1fr}}
+.sample-link{font-weight:600;font-size:.88rem;text-decoration:none}
+
+/* expertise chips in bio */
+.xp{display:flex;flex-wrap:wrap;gap:8px}
+.xp span{font-size:.85rem;color:var(--navy);background:var(--tint-teal);padding:7px 12px;border-radius:4px}
+.stats{grid-template-columns:repeat(4,1fr)}
+@media (max-width:560px){.stats{grid-template-columns:1fr 1fr}}
+
+/* globe service chips */
+.svc-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:540px}
+.svc-chips button{font:600 .78rem/1.25 var(--f-body);color:var(--navy);background:rgba(255,255,255,.92);border:1px solid var(--rule);border-radius:6px;padding:9px 10px;cursor:pointer;text-align:left;display:flex;gap:7px;align-items:flex-start}
+.svc-chips button::before{content:"";flex:none;width:10px;height:10px;margin-top:2px;background:var(--rule);-webkit-mask:var(--star) center/contain no-repeat;mask:var(--star) center/contain no-repeat}
+.svc-chips button[aria-pressed="true"]{border-color:var(--gold);background:var(--tint-gold)}
+.svc-chips button[aria-pressed="true"]::before{background:var(--gold)}
+.svc-chips em{font-style:normal;font-weight:500;color:var(--gold-ink);font-size:.7rem;display:block}
+@media (max-width:480px){.svc-chips{grid-template-columns:1fr 1fr}}
+.orbit-cap a{font-weight:600;font-size:.88rem;text-decoration:none;margin-top:4px}
+
+/* Airtable inquiry form */
+.at-fallback{background:var(--tint-teal);border-radius:var(--r);padding:22px;display:grid;gap:14px;justify-items:start}
+.at-frame{border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;background:var(--surface);min-width:0}
+.at-frame iframe{display:block;width:100%;max-width:100%;height:1100px;border:0;background:transparent}
+@media (max-width:860px){.at-frame iframe{height:1300px}}
+@media (max-width:480px){.at-frame iframe{height:1500px}}
+@media (max-width:860px){#v-contact .split{grid-template-columns:1fr!important}}
+@media (max-width:480px){#v-contact .panel{padding:18px 12px}}
+
+/* 3D service prism */
+.prism-wrap{display:grid;gap:16px;justify-items:center;min-width:0}
+.prism-stage{--w:min(300px,66vw);--h:360px;--a:calc(var(--w) * 0.8660254);width:100%;height:calc(var(--h) + 56px);perspective:1300px;perspective-origin:50% 40%;display:grid;place-items:center;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;outline:none}
+.prism-stage:focus-visible{outline:3px solid var(--gold);outline-offset:4px;border-radius:12px}
+.prism-stage.drag{cursor:grabbing}
+.prism{position:relative;width:var(--w);height:var(--h);transform-style:preserve-3d;transform:translateZ(calc(var(--a) * -1)) rotateX(-7deg) rotateY(var(--ry,0deg))}
+.prism.snap{transition:transform .7s cubic-bezier(.2,.75,.2,1)}
+.pf{position:absolute;inset:0;transform:rotateY(calc(var(--i) * 60deg)) translateZ(var(--a));background:linear-gradient(160deg,#FFFFFF 0%,#FBF8F1 62%,#F4EEDF 100%);border:1px solid #E2D6BC;border-top:3px solid var(--gold);border-radius:10px;padding:24px 22px;display:flex;flex-direction:column;gap:10px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.6),0 30px 50px -36px rgba(11,32,52,.6);backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;transition:filter .3s}
+.pf::before{content:"";position:absolute;right:-60px;top:-40px;width:200px;height:120px;border:1.5px solid rgba(201,149,42,.35);border-radius:50%;transform:rotate(-18deg);pointer-events:none}
+.pf::after{content:"";position:absolute;right:20px;top:18px;width:16px;height:16px;background:var(--gold);-webkit-mask:var(--star) center/contain no-repeat;mask:var(--star) center/contain no-repeat}
+.pf-k{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);padding-right:28px}
+.pf h3{font-size:1.35rem}
+.pf p{font-size:.92rem;color:var(--ink-2)}
+.pf .soon{align-self:flex-start}
+.pf-d{border-top:1px solid var(--rule);padding-top:10px;margin-top:auto!important}
+.pf-d b{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:2px}
+.pf-d{color:var(--navy)!important;font-weight:500}
+.pf-link{font-weight:600;font-size:.88rem;text-decoration:none}
+.pf[aria-hidden="true"]{pointer-events:none;filter:saturate(.7) brightness(.97)}
+.prism-nav{display:flex;align-items:center;gap:12px}
+.pn-arrow{width:40px;height:40px;border-radius:50%;border:1px solid var(--rule);background:var(--surface);color:var(--navy);font-size:1.05rem;cursor:pointer}
+.pn-arrow:hover{border-color:var(--gold)}
+.pn-dots{display:flex;gap:8px}
+.pn-dots button{width:14px;height:14px;padding:0;border:0;cursor:pointer;background:#D9CFB8;-webkit-mask:var(--star) center/contain no-repeat;mask:var(--star) center/contain no-repeat}
+.pn-dots button[aria-pressed="true"]{background:var(--gold);transform:scale(1.35)}
+@media (max-width:860px){.prism-stage{--h:340px}}
+@media (max-width:420px){.prism-stage{--w:min(270px,72vw);--h:350px}.pf{padding:20px 18px}.pf h3{font-size:1.2rem}}
+
+/* Constellation of services */
+.const-wrap{display:grid;gap:14px;justify-items:center;min-width:0;width:100%}
+.const-stage{width:100%;max-width:620px}
+.const-stage svg{width:100%;height:auto;display:block;overflow:visible}
+.const-stage text{font-family:var(--f-body)}
+.c-svc{cursor:pointer;outline:none}
+.c-svc .halo{opacity:0;transition:opacity .35s}
+.c-svc.on .halo{opacity:1}
+.c-svc:focus-visible .ring{stroke:var(--teal);stroke-width:2.5}
+.c-name{font-size:12.5px;font-weight:600;fill:var(--navy);letter-spacing:.02em}
+.c-svc.on .c-name{fill:var(--gold-ink)}
+.c-soon{font-size:9.5px;font-weight:700;letter-spacing:.12em;fill:var(--gold-ink)}
+.c-link{stroke:var(--gold);stroke-opacity:.28;stroke-width:1}
+.c-del line{stroke:var(--gold);stroke-width:1.4;stroke-dasharray:90;stroke-dashoffset:90;transition:stroke-dashoffset .5s ease}
+.c-del text{font-size:11px;fill:var(--ink);opacity:0;transition:opacity .35s .2s}
+.c-del circle{fill:var(--teal);opacity:0;transition:opacity .3s .25s}
+.c-del.on line{stroke-dashoffset:0}
+.c-del.on text,.c-del.on circle{opacity:1}
+.tw{fill:var(--gold)}
+@media (prefers-reduced-motion:no-preference){.tw{animation:twinkle var(--d,4s) ease-in-out infinite alternate}}
+@keyframes twinkle{from{opacity:.15}to{opacity:.85}}
+.const-cap{max-width:560px}
+@media (max-width:480px){.c-name{font-size:14px}.c-del text{font-size:13px}}
+body{margin:0}
+
+/* Custom inquiry form */
+.inq .opt{font-weight:500;color:var(--ink-2);font-size:.78rem;margin-left:4px}
+.inq .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.inq [aria-invalid="true"]{border-color:#B3472F;outline:2px solid rgba(179,71,47,.25)}
+.inq .btn{justify-self:start}
+.inq .btn[disabled]{opacity:.7;cursor:progress}
+.ok.good{background:#E3F1EC;color:#1D4F3B}
+.ok.warn{background:var(--tint-gold);color:#5E4512}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#home" aria-label="Olira Group home">
+      <img class="mk" src="logo-mark.png" alt="" width="53" height="44">
+      <img class="wd" src="logo-word.png" alt="Olira Group" width="148" height="27">
+    </a>
+    <nav class="main" aria-label="Main">
+      <a href="#home">Firm</a>
+      <a href="#services">Services</a>
+      <a href="#intelligence">Location Intelligence</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#partners">Partnerships</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-teal cta-top" href="#contact">Start a conversation</a>
+  </div>
+</header>
+
+<main id="main">
+<!-- ============ HOME ============ -->
+<div class="view" id="v-home">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Strategy · Intelligence · Implementation</p>
+        <h1 style="margin-top:18px">Insight that informs.<br><span class="goldtext">Strategy that delivers.</span></h1>
+        <p class="lede" style="margin-top:20px">Olira Group is a Texas-based, founder-led consulting practice that helps growing organizations navigate complexity, improve performance and turn strategic priorities into measurable progress.</p>
+        <div class="actions">
+          <a class="btn btn-teal" href="#contact">Start a conversation</a>
+          <a class="btn btn-ghost" href="#services">Explore our services</a>
+        </div>
+      </div>
+      <div class="const-wrap">
+        <div class="const-stage" id="const-stage">
+          <svg id="const-svg" viewBox="-95 -20 700 470" role="group" aria-label="Olira Group services shown as a constellation. Choose a star to see its deliverables."></svg>
+        </div>
+        <div class="orbit-cap const-cap" role="status" aria-live="polite"><b id="cc-b"></b><span id="cc-s"></span><a id="cc-a" href="#services"></a></div>
+        <p class="orbit-hint">Hover or tap a star to see what each service delivers.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Our capabilities</p>
+        <h2>From complex challenges to clear direction.</h2>
+        <p class="lede">Olira Group bridges advisory and execution through rigorous analysis, operational design and collaborative implementation. Every engagement has a defined scope and clear acceptance criteria.</p>
+      </div>
+      <div class="caps">
+        <article class="cap">
+          <h3>Strategy &amp; Implementation</h3>
+          <p>Business assessments, strategic planning, workflow improvement and implementation oversight.</p>
+          <p class="del"><b>Typical deliverables</b>Recommendations, roadmaps, executive deck and progress reporting.</p>
+          <a class="more" href="#services">Strategy blueprint →</a>
+        </article>
+        <article class="cap">
+          <h3>Business Operations Launch</h3>
+          <p>Administrative SOPs, employee orientation, onboarding workflows and launch coordination.</p>
+          <p class="del"><b>Typical deliverables</b>Five SOPs, responsibility matrix, orientation deck, onboarding checklist, launch roadmap.</p>
+          <a class="more" href="#services">Operations launch kit →</a>
+        </article>
+        <article class="cap">
+          <h3>Digital Health &amp; Technology Advisory</h3>
+          <p>Requirements, workflow design, vendor coordination, testing and adoption planning.</p>
+          <p class="del"><b>Typical deliverables</b>Requirements, workflow maps, rollout plan, UAT and adoption guidance.</p>
+          <a class="more" href="#services">Technology advisory →</a>
+        </article>
+        <article class="cap">
+          <h3>Performance Intelligence</h3>
+          <p>KPI development, executive dashboards, operational analysis and decision support.</p>
+          <p class="del"><b>Typical deliverables</b>KPI dictionary, dashboard pages validated to source, findings and refresh guide.</p>
+          <a class="more" href="#services">Performance intelligence →</a>
+        </article>
+        <article class="cap">
+          <h3>Fractional Strategy &amp; PMO</h3>
+          <p>Portfolio governance, Agile delivery, program coordination, risk and executive reporting.</p>
+          <p class="del"><b>Typical deliverables</b>Portfolio tracker, weekly coordination, monthly leadership review.</p>
+          <a class="more" href="#services">Fractional PMO →</a>
+        </article>
+        <article class="cap spec">
+          <span class="soon" style="align-self:flex-start">Coming soon</span>
+          <h3>Healthcare Location Intelligence</h3>
+          <p>A developing specialty: whether a market, site or expansion thesis is promising enough for the next round of diligence.</p>
+          <p class="del"><b>Typical deliverables</b>Public-data market scan, maps, competitor inventory, opportunity scorecard.</p>
+          <a class="more" href="#intelligence">What to expect →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-white">
+    <div class="wrap split">
+      <div class="sec-head" style="margin:0">
+        <p class="eyebrow">Who we serve</p>
+        <h2>Specialized knowledge. Transferable expertise.</h2>
+        <p class="lede">A foundation in healthcare, technology and public-sector delivery informs a versatile approach across industries.</p>
+      </div>
+      <div class="industries">
+        <span>Healthcare &amp; life sciences</span>
+        <span>Technology &amp; startups</span>
+        <span>Professional services</span>
+        <span>Public-sector organizations</span>
+        <span>Small &amp; growing businesses</span>
+        <span>Academic &amp; research institutions</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-teal">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Our approach</p>
+        <h2>Thoughtful analysis. Dependable execution.</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><b>Discover</b><p>Understand objectives, the current state and who approves the work.</p></div>
+        <div class="step"><span class="n">02</span><b>Assess</b><p>Research the evidence and identify opportunities.</p></div>
+        <div class="step"><span class="n">03</span><b>Design</b><p>Develop recommendations, roadmaps and acceptance criteria.</p></div>
+        <div class="step"><span class="n">04</span><b>Implement</b><p>Coordinate delivery and measure progress.</p></div>
+        <div class="step"><span class="n">05</span><b>Evaluate</b><p>Review outcomes, train owners and hand off.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Selected work &amp; insights</p>
+        <h2>See how we approach business challenges.</h2>
+        <p class="lede">Portfolio development is underway. These demonstration projects use synthetic or hypothetical data and are not client results.</p>
+      </div>
+      <div class="cases">
+        <article class="case">
+          <div class="minibars" aria-hidden="true"><i style="height:55%"></i><i style="height:90%"></i><i style="height:38%"></i><i style="height:72%"></i></div>
+          <span class="badge">Synthetic data</span>
+          <h3>Healthcare performance intelligence</h3>
+          <p>A four-clinic dashboard of referrals, appointments, no-shows and capacity, with a KPI dictionary, three findings, a 60-day roadmap and an executive deck.</p>
+          <p class="st"><a class="sample-link" href="#services" data-sample="kpi">See the sample KPI scorecard →</a></p>
+        </article>
+        <article class="case">
+          <span class="badge">Hypothetical scenario</span>
+          <h3>Digital health implementation</h3>
+          <p>Moving clinic intake online: current and future workflows, requirements, vendor criteria, a 90-day roadmap, risk register and adoption metrics.</p>
+          <p class="st"><a class="sample-link" href="#services" data-sample="flow">See the sample workflow map →</a></p>
+        </article>
+        <article class="case">
+          <span class="badge">Developing specialty</span>
+          <h3>Healthcare location intelligence</h3>
+          <p>A public-data market scan for a hypothetical behavioral health operator: demographic mapping, provider competition and a preliminary feasibility scorecard.</p>
+          <p class="st"><span class="soon">Coming soon</span></p>
+        </article>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ SERVICES ============ -->
+<div class="view" id="v-services">
+  <section class="page-head">
+    <div class="wrap sec-head" style="margin-bottom:0">
+      <p class="eyebrow">Services</p>
+      <h1>Bounded offers with clear deliverables.</h1>
+      <p class="lede">Every engagement is scoped in writing: what is delivered, by when, who approves it, and what is out of scope. Engagements are individually scoped after a discovery call.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="offers">
+        <article class="offer">
+          <div><p class="k">Strategy &amp; implementation</p><h3>Strategy blueprint</h3></div>
+          <div><p class="k">Deliverables</p><p>Assessment, options, recommendation, roadmap and executive deck.</p></div>
+          <div><p class="k">Example</p><p>A university launching centralized advising: governance, process design and a launch plan. <a class="sample-link" href="#services" data-sample="needs">See a sample needs assessment →</a></p></div>
+        </article>
+        <article class="offer">
+          <div><p class="k">Business operations launch</p><h3>Operations launch kit</h3></div>
+          <div><p class="k">Deliverables</p><p>Five administrative SOPs, responsibility matrix, orientation deck, onboarding checklist and launch roadmap. Typically 3 to 4 weeks.</p></div>
+          <div><p class="k">Example</p><p>A new therapy practice hiring six clinicians: onboarding workflow and credential tracking built on client-approved requirements. <a class="sample-link" href="#services" data-sample="raci">See a sample responsibility matrix →</a></p></div>
+        </article>
+        <article class="offer">
+          <div><p class="k">Digital health &amp; technology</p><h3>Technology advisory</h3></div>
+          <div><p class="k">Deliverables</p><p>Requirements, workflow maps, dependencies, rollout plan, UAT and adoption guidance.</p></div>
+          <div><p class="k">Example</p><p>A specialty clinic moving paper intake online. The vendor and qualified specialists own configuration, security and clinical validation. <a class="sample-link" href="#services" data-sample="flow">See a sample workflow map →</a></p></div>
+        </article>
+        <article class="offer">
+          <div><p class="k">Performance intelligence</p><h3>Performance intelligence</h3></div>
+          <div><p class="k">Deliverables</p><p>Up to three agreed data sources, KPI dictionary, three report pages, insights and a refresh guide.</p></div>
+          <div><p class="k">Example</p><p>A four-location behavioral health operator comparing referral conversion, utilization and no-shows. <a class="sample-link" href="#services" data-sample="kpi">See a sample KPI scorecard →</a></p></div>
+        </article>
+        <article class="offer">
+          <div><p class="k">Fractional strategy &amp; PMO</p><h3>Fractional PMO</h3></div>
+          <div><p class="k">Deliverables</p><p>Portfolio tracker, weekly coordination and a monthly leadership review. Typically 5 to 12 hours a week.</p></div>
+          <div><p class="k">Example</p><p>A 15-person health tech startup coordinating releases and customer onboarding. <a class="sample-link" href="#services" data-sample="port">See a sample tracker and Gantt timeline →</a></p></div>
+        </article>
+        <article class="offer">
+          <div><p class="k">Contracting</p><h3>1099 &amp; subcontract</h3></div>
+          <div><p class="k">Roles</p><p>Business analysis, project management, Scrum, health IT and delivery support.</p></div>
+          <div><p class="k">For</p><p>Organizations and prime contractors that need experienced delivery capacity. <a href="#partners">Partnerships →</a></p></div>
+        </article>
+        <article class="offer">
+          <div><p class="k">Location intelligence</p><h3>Market opportunity pilot</h3><p style="margin-top:8px"><span class="soon">Coming soon</span></p></div>
+          <div><p class="k">Deliverables</p><p>Public-data market scan, maps, competitor inventory and opportunity scorecard. Not a profit guarantee.</p></div>
+          <div><p class="k">Example</p><p>A clinic operator considering a new market. <a href="#intelligence">How it works →</a></p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-white" id="samples">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Sample deliverables</p>
+        <h2>See what you receive before you sign.</h2>
+        <p class="lede">These samples show the format and depth of each deliverable. The organizations and figures are fictional, and every real engagement is built from your own data and approved requirements.</p>
+      </div>
+      <div class="smp">
+        <div class="smp-tabs" role="tablist" aria-label="Sample deliverables">
+          <button role="tab" id="t-needs" aria-controls="p-needs" aria-selected="true"><b>Needs assessment</b><span>Strategy &amp; implementation</span></button>
+          <button role="tab" id="t-road" aria-controls="p-road" aria-selected="false" tabindex="-1"><b>90-day roadmap</b><span>Strategy &amp; implementation</span></button>
+          <button role="tab" id="t-raci" aria-controls="p-raci" aria-selected="false" tabindex="-1"><b>Responsibility matrix</b><span>Operations launch kit</span></button>
+          <button role="tab" id="t-flow" aria-controls="p-flow" aria-selected="false" tabindex="-1"><b>Workflow map</b><span>Digital health &amp; technology</span></button>
+          <button role="tab" id="t-kpi" aria-controls="p-kpi" aria-selected="false" tabindex="-1"><b>KPI scorecard</b><span>Performance intelligence</span></button>
+          <button role="tab" id="t-port" aria-controls="p-port" aria-selected="false" tabindex="-1"><b>Portfolio tracker</b><span>Fractional strategy &amp; PMO</span></button>
+          <button role="tab" id="t-gantt" aria-controls="p-gantt" aria-selected="false" tabindex="-1"><b>Gantt timeline</b><span>Fractional strategy &amp; PMO</span></button>
+        </div>
+
+        <!-- Needs assessment -->
+        <div class="doc" role="tabpanel" id="p-needs" aria-labelledby="t-needs">
+          <div class="doc-head"><div><p class="doc-k">Sample · Patient access needs assessment</p><h3>Riverbend Community Clinic</h3></div><span class="tag-s">Fictional organization</span></div>
+          <p class="doc-p">Six access needs scored for impact on patients and the effort to address them. Select a need to see the evidence behind it and the recommendation.</p>
+          <div class="needs">
+            <div class="mtx-wrap">
+              <svg class="mtx" id="mtx" viewBox="0 0 420 340" role="group" aria-label="Priority matrix of impact against effort"></svg>
+            </div>
+            <div class="need-card" id="need-card" role="status"></div>
+          </div>
+        </div>
+
+        <!-- Roadmap -->
+        <div class="doc" role="tabpanel" id="p-road" aria-labelledby="t-road" hidden>
+          <div class="doc-head"><div><p class="doc-k">Sample · 90-day implementation roadmap</p><h3>Centralized advising launch, Lakeview University</h3></div><span class="tag-s">Fictional organization</span></div>
+          <div class="table-wrap"><div class="road" id="road"></div></div>
+          <p class="small" style="margin-top:12px"><span class="ms-ico"></span> Milestone that needs sponsor sign-off.</p>
+        </div>
+
+        <!-- RACI -->
+        <div class="doc" role="tabpanel" id="p-raci" aria-labelledby="t-raci" hidden>
+          <div class="doc-head"><div><p class="doc-k">Sample · Responsibility (RACI) matrix</p><h3>Clinician onboarding, Harbor Therapy Group</h3></div><span class="tag-s">Fictional organization</span></div>
+          <p class="doc-p">Select a role to see everything that person owns.</p>
+          <div class="table-wrap"><table class="raci" id="raci"></table></div>
+          <div class="raci-key"><span><i class="rc R">R</i>Responsible: does the work</span><span><i class="rc A">A</i>Accountable: approves it</span><span><i class="rc C">C</i>Consulted</span><span><i class="rc I">I</i>Informed</span></div>
+        </div>
+
+        <!-- Workflow -->
+        <div class="doc" role="tabpanel" id="p-flow" aria-labelledby="t-flow" hidden>
+          <div class="doc-head"><div><p class="doc-k">Sample · Swimlane workflow map</p><h3>New-patient intake, Summit Specialty Clinic</h3></div><span class="tag-s">Fictional organization</span></div>
+          <div class="seg" role="group" aria-label="Workflow state"><button type="button" id="flow-cur" aria-pressed="true">Current state</button><button type="button" id="flow-fut" aria-pressed="false">Future state</button></div>
+          <div class="table-wrap"><div class="flow" id="flow"></div></div>
+          <p class="flow-note" id="flow-note"></p>
+        </div>
+
+        <!-- KPI -->
+        <div class="doc" role="tabpanel" id="p-kpi" aria-labelledby="t-kpi" hidden>
+          <div class="doc-head"><div><p class="doc-k">Sample · KPI scorecard and dictionary</p><h3>Behavioral health operator, four locations</h3></div><span class="tag-s">Synthetic data</span></div>
+          <div class="seg" role="group" aria-label="Location" id="kpi-locs"></div>
+          <div class="kpis" id="kpis"></div>
+          <div class="table-wrap"><table class="t kdict"><thead><tr><th>KPI</th><th>Definition</th><th>Source</th><th>Refresh</th></tr></thead><tbody>
+            <tr><td>Referral conversion</td><td>Referrals with a completed first visit within 30 days, divided by referrals received</td><td>Referral log, EHR scheduling</td><td>Weekly</td></tr>
+            <tr><td>No-show rate</td><td>Scheduled visits with no arrival and no cancellation, divided by scheduled visits</td><td>EHR scheduling</td><td>Weekly</td></tr>
+            <tr><td>Days to third next available</td><td>Calendar days until the third open new-patient slot</td><td>EHR templates</td><td>Weekly</td></tr>
+            <tr><td>Clinician utilization</td><td>Billed visit hours divided by scheduled clinical hours</td><td>Billing, staffing roster</td><td>Monthly</td></tr>
+          </tbody></table></div>
+        </div>
+
+        <!-- Portfolio -->
+        <div class="doc" role="tabpanel" id="p-port" aria-labelledby="t-port" hidden>
+          <div class="doc-head"><div><p class="doc-k">Sample · Portfolio tracker</p><h3>Q1 portfolio, Northwind Health (15-person startup)</h3></div><span class="tag-s">Fictional organization</span></div>
+          <div class="seg" role="group" aria-label="Filter by status" id="port-f"></div>
+          <div class="table-wrap"><table class="t port" id="port"></table></div>
+        </div>
+
+        <!-- Gantt -->
+        <div class="doc" role="tabpanel" id="p-gantt" aria-labelledby="t-gantt" hidden>
+          <div class="doc-head"><div><p class="doc-k">Sample · Project timeline (Gantt)</p><h3>Release 2.4 and customer onboarding, Northwind Health</h3></div><span class="tag-s">Fictional organization</span></div>
+          <p class="doc-p">Twelve weeks from discovery to hypercare. Hover or tap a bar for its dates and owner.</p>
+          <div class="table-wrap"><div class="gantt" id="gantt"></div></div>
+          <p class="gantt-tip" id="gantt-tip" role="status">Week 6 is the current week. Sprint 2 is in progress and on schedule.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-white">
+    <div class="wrap split">
+      <div class="sec-head" style="margin:0">
+        <p class="eyebrow">Ways to work together</p>
+        <h2>Engagement models</h2>
+      </div>
+      <div class="cols" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+        <div><b>Fixed-scope projects</b><p>Defined deliverables and acceptance criteria.</p></div>
+        <div><b>Implementation support</b><p>Coordinating rollout with your team and vendors.</p></div>
+        <div><b>Fractional leadership</b><p>Set hours each month for portfolio and delivery leadership.</p></div>
+        <div><b>Independent consulting</b><p>1099 assignments in business analysis, PM, Scrum and health IT.</p></div>
+        <div><b>Subcontracting</b><p>Delivery capacity for primes and consulting firms.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap split">
+      <div class="sec-head" style="margin:0">
+        <p class="eyebrow">Every engagement</p>
+        <h2>What you can expect at handoff.</h2>
+      </div>
+      <div style="display:grid;gap:20px">
+        <ul class="ticks">
+          <li>The sponsor approves requirements and scope before work begins.</li>
+          <li>Evidence and assumptions are documented; recommendations trace to findings.</li>
+          <li>What is out of scope is stated clearly.</li>
+          <li>You receive editable source files as contracted, training and a documented handoff.</li>
+        </ul>
+        <p class="small"><b style="color:var(--navy)">Boundaries.</b> Olira Group does not provide legal or HR advice, clinical credentialing determinations, security certifications, software engineering or investment guarantees. Where those are needed, we work alongside qualified professionals.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ LOCATION INTELLIGENCE ============ -->
+<div class="view" id="v-intelligence">
+  <section class="page-head">
+    <div class="wrap sec-head" style="margin-bottom:0">
+      <p><span class="soon">Coming soon · not yet accepting engagements</span></p>
+      <h1>Healthcare location intelligence</h1>
+      <p class="lede">For clinics, operators, developers and investors deciding whether a market or a site deserves the next round of diligence. Market attractiveness is not profitability, so every assessment names what still needs to be proven.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">What to expect at launch</p>
+        <h2>A clear answer on whether a market deserves the next step.</h2>
+        <p class="lede">This service is in development and is not yet available. Here is how it is planned to work. Join the interest list and you will hear first when it opens.</p>
+      </div>
+      <div class="expect">
+        <div><h3>Who it is for</h3><ul class="ticks"><li>Clinics and practices weighing a new location</li><li>Operators testing an expansion plan</li><li>Developers and investors screening healthcare sites</li></ul></div>
+        <div><h3>What you will receive</h3><ul class="ticks"><li>Market scan built from public data</li><li>Maps of population need and drive-time areas</li><li>Competitor and provider inventory</li><li>Weighted opportunity scorecard</li><li>List of what still needs to be proven</li></ul></div>
+        <div><h3>How it will work</h3><ul class="ticks"><li>Scoping call to agree the service line and geography</li><li>Criteria and weights approved before scoring</li><li>Findings review with your team</li><li>Editable files and sources at handoff</li></ul></div>
+      </div>
+      <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <a class="btn btn-teal" href="#contact" id="join-interest">Join the interest list</a>
+        <span class="small">Mention healthcare location intelligence in your inquiry.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-white">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Preview: sample market scan</p>
+        <h2>Move the site and watch the market change.</h2>
+        <p class="lede">Each hexagon shades by estimated population need. White circles are existing providers. Move the gold star to test a location inside a 15-minute drive area. The map uses synthetic data for illustration only.</p>
+      </div>
+      <div class="scan">
+        <div class="scan-map" id="scan-map" tabindex="0" role="img" aria-label="Sample market map. Use the arrow keys to move the candidate site."><canvas></canvas></div>
+        <div class="scan-side">
+          <div class="read">
+            <div><strong id="r-pop">0</strong><span>People in area</span></div>
+            <div><strong id="r-prov">0</strong><span>Providers</span></div>
+            <div><strong id="r-score">0</strong><span>Opportunity</span></div>
+          </div>
+          <div class="meter" aria-hidden="true"><i id="r-meter"></i></div>
+          <p class="verdict" id="r-verdict" role="status"></p>
+          <div class="legend"><span class="ramp"></span>Lower to higher need <span class="dot"></span>Provider</div>
+          <p class="small">A real assessment uses Census, CMS and state licensing data, plus drive-time analysis and site visits.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cols">
+        <div><b>Market opportunity scan</b><p><em>Is this geography promising?</em> For a clinic or operator considering entering a market.</p></div>
+        <div><b>Site comparison</b><p><em>Which of several candidate addresses is better?</em> For a provider or development team.</p></div>
+        <div><b>Commercial screening</b><p><em>Is an operator or expansion thesis attractive enough for diligence?</em> For an investor or developer.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-white">
+    <div class="wrap split">
+      <div class="sec-head" style="margin:0">
+        <p class="eyebrow">Signature offer</p>
+        <h2>Location opportunity assessment</h2>
+        <p class="lede">Define the service line, geography and patient segment. Map the catchment and competitors. Gather demographic, access, growth and payer indicators. Assess referral sources and staffing constraints. Score, test the assumptions, and present findings with the further diligence required.</p>
+      </div>
+      <div>
+        <div class="table-wrap">
+          <table class="t">
+            <thead><tr><th>Criterion</th><th>Example weight</th><th>Evidence</th></tr></thead>
+            <tbody>
+              <tr><td>Population and growth</td><td class="num"><span class="weight" style="width:50px"></span>25%</td><td>ACS and local projections</td></tr>
+              <tr><td>Service access indicators</td><td class="num"><span class="weight" style="width:50px"></span>25%</td><td>Provider locations and access measures</td></tr>
+              <tr><td>Competition</td><td class="num"><span class="weight" style="width:40px"></span>20%</td><td>Provider inventory and validation</td></tr>
+              <tr><td>Payer and economics</td><td class="num"><span class="weight" style="width:30px"></span>15%</td><td>Public indicators and client assumptions</td></tr>
+              <tr><td>Operational feasibility</td><td class="num"><span class="weight" style="width:30px"></span>15%</td><td>Staffing, access and site constraints</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small" style="margin-top:12px">Illustrative weights. Each criterion is scored 1 to 5 with documented rules and sensitivity tests, and weights are agreed with the client.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap split">
+      <div class="sec-head" style="margin:0">
+        <p class="eyebrow">Sources</p>
+        <h2>Built on public data, with dates and limits stated.</h2>
+      </div>
+      <div style="display:grid;gap:14px">
+        <p>Census American Community Survey and population estimates, HRSA data and shortage designations, CMS provider datasets, the NPPES registry, local planning and permitting records, state health data, and client-approved reimbursement, capacity and cost assumptions.</p>
+        <p class="muted">Public provider listings do not establish actual availability or demand. Financial feasibility needs volume, reimbursement, staffing, occupancy, startup and operating costs, and qualified partners where needed.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ LEADERSHIP ============ -->
+<div class="view" id="v-leadership">
+  <section class="page-head">
+    <div class="wrap sec-head" style="margin-bottom:0">
+      <p class="eyebrow">Meet our founder</p>
+      <h1>Public health training. Federal-grade delivery.</h1>
+      <p class="lede">Oluchi Nwaobia leads every Olira Group engagement personally.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap founder">
+      <div class="headshot"><img src="founder-headshot.jpg" alt="Portrait of Oluchi Nwaobia, founder of Olira Group" width="720" height="898"></div>
+      <div class="bio">
+        <p class="eyebrow">Founder &amp; Managing Principal</p>
+        <h2>Oluchi Nwaobia, MPH, PMP, CSM</h2>
+        <div class="rule"></div>
+        <p class="lede" style="color:var(--ink)">Oluchi Nwaobia is the founder and managing principal of Olira Group. She is a public health–trained strategist and certified project management professional with approximately 13 years of experience turning complex requirements into working operations across healthcare, biotechnology, pharmacy, technology, energy, public health, academia and research.</p>
+        <p>Her work sits where strategy, data and delivery meet. She has led a team of 25 analysts, contributed to a Lean Six Sigma initiative that reduced operational expenses by 45%, and supported enterprise system integrations from requirements through release, including data dictionaries, API and interface coordination, release management and transitions from legacy systems.</p>
+        <p>For more than five years she has supported federal programs at a large government contractor, authoring standard operating procedures and federal technical documentation and managing delivery for complex, multi-stakeholder programs. Her analytical work spans healthcare claims operations, accounting ledger development, demographic analysis, clinical research needs assessments and executive performance reporting.</p>
+        <div class="stats">
+          <div class="stat"><strong>13</strong><span>Years of experience</span></div>
+          <div class="stat"><strong>5+</strong><span>Years supporting federal programs</span></div>
+          <div class="stat"><strong>25</strong><span>Analysts led</span></div>
+          <div class="stat"><strong>45%</strong><span>Expense reduction (Lean Six Sigma)</span></div>
+        </div>
+        <p class="small">Results from the founder's prior professional roles, not Olira Group client outcomes.</p>
+        <p>Graduate training in epidemiology and biostatistics gives her an evidence-first approach: define the question, test the assumptions and measure what changed. Paired with PMP, Scrum and SAFe credentials, that discipline lets her carry an engagement from analysis through implementation without a hand-off between advisors.</p>
+        <div style="display:grid;gap:10px">
+          <p class="eyebrow">Areas of expertise</p>
+          <div class="xp"><span>Strategic planning &amp; roadmaps</span><span>Business &amp; requirements analysis</span><span>Program &amp; portfolio management</span><span>Agile delivery (Scrum, SAFe)</span><span>Lean Six Sigma process improvement</span><span>KPI design &amp; Power BI dashboards</span><span>Health IT &amp; system implementation</span><span>Needs assessments &amp; population data</span><span>SOPs &amp; federal technical writing</span></div>
+        </div>
+        <p>She founded Olira Group to help organizations solve ambiguous problems, connect information and recognize overlooked opportunities. Grounded in servant leadership, she treats every engagement as a partnership, working alongside stakeholders to set shared objectives and build practical solutions their teams can sustain. Outside client work, she volunteers with a children's hospital, serves in her church and supports women's workforce readiness.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-white">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Education &amp; credentials</p><h2>Training behind the work</h2></div>
+      <div class="creds">
+        <div class="card">
+          <h3>Education &amp; analytics</h3>
+          <ul>
+            <li>Master of Public Health (MPH), Epidemiology, with biostatistics and community health practice <span class="ph">[institution]</span></li>
+            <li>Graduate degree, Health &amp; Biomedical Sciences <span class="ph">[confirm exact title and institution]</span></li>
+            <li>Bachelor of Science, Public Health <span class="ph">[institution]</span></li>
+            <li>Data Analytics Certificate, Cornell University</li>
+            <li>Data Analysis Using Power BI Desktop, Learning Tree International</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Program &amp; Agile leadership</h3>
+          <ul>
+            <li>Project Management Professional (PMP), PMI</li>
+            <li>Certified ScrumMaster (CSM), Scrum Alliance</li>
+            <li>SAFe Product Owner/Product Manager, Scaled Agile</li>
+            <li>Agile Product Ownership (ICP-APO), ICAgile</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-gold">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Mission &amp; vision</p><h2>Empowering organizations to grow with confidence.</h2></div>
+      <div class="cols" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+        <div><b>Mission</b><p>To empower organizations to navigate complexity, make informed decisions and achieve sustainable growth through rigorous analysis, strategic insight, operational excellence and collaborative implementation.</p></div>
+        <div><b>Vision</b><p>To become a trusted multidisciplinary consulting and intelligence firm recognized for helping founders, executives and organizations transform ideas into impactful solutions, overcome critical operational challenges and build resilient foundations for growth.</p></div>
+        <div><b>Philosophy</b><p>Meaningful transformation begins with understanding the organization, the people it serves, the systems that support it and the challenges that hold it back. Clients are active participants throughout.</p></div>
+      </div>
+      <div style="display:grid;gap:14px;margin-top:40px">
+        <p class="eyebrow">Core values</p>
+        <div class="values"><span>Curiosity</span><span>Analytical rigor</span><span>Partnership</span><span>Integrity &amp; transparency</span><span>Execution excellence</span><span>Sustainable impact</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ PARTNERSHIPS ============ -->
+<div class="view" id="v-partners">
+  <section class="page-head">
+    <div class="wrap sec-head" style="margin-bottom:0">
+      <p class="eyebrow">Professional services &amp; teaming</p>
+      <h1>Partner with Olira Group.</h1>
+      <p class="lede">Independent consulting and subcontracting support for consulting firms, technology vendors and public-sector contractors.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap split">
+      <div style="display:grid;gap:22px">
+        <h2>What we bring to a team</h2>
+        <ul class="ticks">
+          <li>Senior business analysis and requirements management</li>
+          <li>IT program and project management</li>
+          <li>Agile delivery and Scrum coordination</li>
+          <li>Health IT implementation support</li>
+          <li>Performance reporting and PMO services</li>
+        </ul>
+        <p class="small">Prior accomplishments are described as founder experience, subject to confidentiality. Olira Group claims only approved certifications, clearances and contract vehicles.</p>
+        <p><a class="btn btn-teal" href="#contact">Discuss a partnership</a></p>
+      </div>
+      <div class="panel">
+        <h3>Corporate capabilities</h3>
+        <dl class="facts">
+          <div><dt>Legal name</dt><dd>Olira Group, LLC</dd></div>
+          <div><dt>Location</dt><dd>Texas, USA · remote and on-site support as needed</dd></div>
+          <div><dt>UEI</dt><dd><span class="ph">[insert verified identifier]</span></dd></div>
+          <div><dt>CAGE</dt><dd><span class="ph">[insert verified code]</span></dd></div>
+          <div><dt>NAICS</dt><dd><span class="ph">[confirm applicable codes]</span></dd></div>
+          <div><dt>SAM status</dt><dd><span class="ph">[verify before publication]</span></dd></div>
+          <div><dt>Certifications</dt><dd><span class="ph">[approved only, if applicable]</span></dd></div>
+          <div><dt>Capability statement</dt><dd><span class="ph">[approved public PDF]</span></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ CONTACT ============ -->
+<div class="view" id="v-contact">
+  <section class="page-head">
+    <div class="wrap sec-head" style="margin-bottom:0">
+      <p class="eyebrow">Let's connect</p>
+      <h1>Move your next initiative forward.</h1>
+      <p class="lede">Tell us what you are working toward. We will follow up to schedule a 20 to 30 minute discovery call and explore whether Olira Group is the right partner.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap split" style="grid-template-columns:1.45fr 1fr">
+      <div class="panel">
+        <div><p class="eyebrow">Inquiry</p><h3 style="margin-top:8px;font-size:1.5rem">Tell us about your organization</h3></div>
+        <p class="notice">Please do not submit patient information, confidential records or sensitive business data.</p>
+        <form id="inq" class="inq" novalidate>
+          <div class="frow">
+            <label for="q-name">Name<input id="q-name" name="name" required autocomplete="name"></label>
+            <label for="q-org">Organization<input id="q-org" name="organization" required autocomplete="organization"></label>
+          </div>
+          <div class="frow">
+            <label for="q-title">Job title<input id="q-title" name="jobTitle" required autocomplete="organization-title"></label>
+            <label for="q-email">Email address<input id="q-email" name="email" type="email" required autocomplete="email"></label>
+          </div>
+          <div class="frow">
+            <label for="q-phone"><span>Phone number <span class="opt">Optional</span></span><input id="q-phone" name="phone" type="tel" autocomplete="tel"></label>
+            <label for="q-site">Company website<input id="q-site" name="website" required inputmode="url" autocomplete="url" placeholder="example.com"></label>
+          </div>
+          <label for="q-service">Service of interest
+            <select id="q-service" name="service" required>
+              <option value="">Choose a service</option>
+              <option>Strategy &amp; Implementation</option>
+              <option>Business Operations Launch</option>
+              <option>Research &amp; Analytics</option>
+              <option>Digital Health &amp; Technology Advisory</option>
+              <option>Fractional Strategy &amp; Operations (Fractional COO)</option>
+              <option>Project &amp; Program Management (PMO Support)</option>
+              <option>Healthcare Location &amp; Competitive Intelligence</option>
+              <option>1099 Contracting, Subcontracting or Partnerships</option>
+              <option>Other / General Inquiry / Exploring Options</option>
+            </select>
+          </label>
+          <label for="q-goal">What are you hoping to accomplish?<textarea id="q-goal" name="goal" required></textarea></label>
+          <label for="q-success">What would success look like?<textarea id="q-success" name="success" required></textarea></label>
+          <div class="frow">
+            <label for="q-budget"><span>Estimated budget <span class="opt">Optional</span></span>
+              <select id="q-budget" name="budget"><option value="">Choose one</option><option>Prefer Not To Say</option><option>Under $5,000</option><option>$5,000 to $10,000</option><option>$10,000 to $25,000</option><option>Over $25,000</option><option>Responding to a Solicitation</option></select>
+            </label>
+            <label for="q-start">Desired start date
+              <select id="q-start" name="startDate" required><option value="">Choose one</option><option>Within 30 Days</option><option>1 to 3 Months</option><option>3 to 6 Months</option><option>Still Exploring</option><option>Unsure</option></select>
+            </label>
+          </div>
+          <label for="q-source">How did you hear about us?
+            <select id="q-source" name="source" required>
+              <option value="">Choose one</option><option>Referral</option><option>LinkedIn</option><option>Search engine</option><option>Event or conference</option><option>Partner or prime contractor</option><option>Other</option>
+            </select>
+          </label>
+          <div class="hp" aria-hidden="true"><label for="q-fax">Leave this field empty<input id="q-fax" name="company_fax" tabindex="-1" autocomplete="off"></label></div>
+          <button class="btn btn-teal" type="submit" id="q-send">Send inquiry</button>
+          <p class="ok" id="q-ok" role="status" hidden></p>
+          <p class="small">Prefer email? Write to <a href="mailto:contact@oliragroup.com">contact@oliragroup.com</a>.</p>
+        </form>
+      </div>
+      <aside style="display:grid;gap:22px;align-content:start;min-width:0">
+        <div class="panel" style="gap:14px">
+          <dl class="facts">
+            <div><dt>Business email</dt><dd><a href="mailto:contact@oliragroup.com">contact@oliragroup.com</a></dd></div>
+            <div><dt>Schedule a call</dt><dd><span class="ph">[insert booking link]</span></dd></div>
+            <div><dt>LinkedIn</dt><dd><span class="ph">[insert company page]</span></dd></div>
+            <div><dt>Website</dt><dd><a href="https://www.oliragroup.com">www.oliragroup.com</a></dd></div>
+            <div><dt>Location</dt><dd>Texas, USA</dd></div>
+          </dl>
+        </div>
+        <div class="panel" style="background:var(--tint-teal);border-color:transparent;gap:8px">
+          <h3>Prime contractors and agencies</h3>
+          <p class="muted" style="font-size:.92rem">Select "Contracting or partnership" above, or see <a href="#partners">Partnerships</a> for corporate details.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</div>
+
+<!-- ============ POLICIES ============ -->
+<div class="view" id="v-policies">
+  <section class="page-head">
+    <div class="wrap sec-head" style="margin-bottom:0">
+      <p class="eyebrow">Website policies · draft</p>
+      <h1>Privacy, terms &amp; accessibility</h1>
+      <p class="lede">Draft summaries for review before publication, not finalized legal policies. Have counsel review them before launch.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <details id="d-privacy" open><summary>Privacy policy</summary><p>Olira Group intends to use business contact and inquiry information to respond to requests, schedule consultations and evaluate engagements. Before launch, confirm actual hosting, service providers, cookies, analytics, sharing, retention, security, privacy rights and contact details. Do not submit sensitive or patient information. Privacy contact: <a href="mailto:contact@oliragroup.com">contact@oliragroup.com</a>. Effective date: <span class="ph">[pending]</span></p></details>
+      <details id="d-terms"><summary>Terms of use</summary><p>Website materials are informational and do not constitute legal, medical, tax or investment advice. Consulting services require separate signed agreements. Demonstrations are illustrative, not guarantees. Liability, governing law, third-party links and effective date: <span class="ph">[attorney review pending]</span></p></details>
+      <details id="d-access"><summary>Accessibility statement</summary><p>Olira Group aims to work toward WCAG 2.2 Level AA alignment and welcomes feedback on barriers. Accessibility contact: <a href="mailto:contact@oliragroup.com">contact@oliragroup.com</a>. Date: <span class="ph">[insert]</span>. Accessibility testing is required before making conformance claims.</p></details>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <span class="logo"><img src="logo-full.png" alt="Olira Group: Strategy, Intelligence, Implementation" width="230" height="142"></span>
+      <p class="tag">Turning insight into strategy, and strategy into execution.</p>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul><li><a href="#services">Strategy &amp; implementation</a></li><li><a href="#services">Business operations launch</a></li><li><a href="#services">Digital health &amp; technology</a></li><li><a href="#services">Performance intelligence</a></li><li><a href="#services">Fractional strategy &amp; PMO</a></li><li><a href="#intelligence">Location intelligence</a></li></ul>
+    </div>
+    <div>
+      <h4>Firm</h4>
+      <ul><li><a href="#leadership">Leadership</a></li><li><a href="#partners">Partnerships</a></li><li><a href="#contact">Contact</a></li><li><a href="#policies">Privacy, terms &amp; accessibility</a></li></ul>
+    </div>
+    <div class="legal">
+      <span>© 2026 Olira Group, LLC</span>
+      <span>Texas, United States</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var views=["home","services","intelligence","leadership","partners","contact","policies"];
+  function route(){
+    var h=(location.hash||"#home").slice(1);
+    if(views.indexOf(h)<0) h="home";
+    views.forEach(function(v){document.getElementById("v-"+v).classList.toggle("on",v===h)});
+    document.querySelectorAll("nav.main a").forEach(function(a){
+      if(a.getAttribute("href")==="#"+h) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+    });
+    window.scrollTo(0,0);
+  }
+  window.addEventListener("hashchange",route); route();
+
+})();
+</script>
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function rng(seed){return function(){seed=(seed*16807)%2147483647;return (seed-1)/2147483646}}
+
+  /* ---------- Background art: gold swoosh orbits and scattered stars, seeded per band ---------- */
+  function starPath(x,y,r){
+    var k=r*.18;
+    return "M"+x+" "+(y-r)+"C"+(x+k)+" "+(y-k)+" "+(x+k)+" "+(y-k)+" "+(x+r)+" "+y+"C"+(x+k)+" "+(y+k)+" "+(x+k)+" "+(y+k)+" "+x+" "+(y+r)+"C"+(x-k)+" "+(y+k)+" "+(x-k)+" "+(y+k)+" "+(x-r)+" "+y+"C"+(x-k)+" "+(y-k)+" "+(x-k)+" "+(y-k)+" "+x+" "+(y-r)+"Z";
+  }
+  function art(el,seed,opt){
+    var r=rng(seed),W=1600,H=opt.h||700,s='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>'+
+      '<linearGradient id="g'+seed+'" x1="0" x2="1"><stop offset="0" stop-color="#C9952A" stop-opacity="0"/><stop offset=".55" stop-color="#C9952A" stop-opacity="'+(opt.a||.55)+'"/><stop offset="1" stop-color="#C9952A" stop-opacity="0"/></linearGradient>'+
+      '<linearGradient id="t'+seed+'" x1="0" x2="1"><stop offset="0" stop-color="#0B4D57" stop-opacity="0"/><stop offset=".5" stop-color="#0B4D57" stop-opacity="'+(opt.ta||.16)+'"/><stop offset="1" stop-color="#0B4D57" stop-opacity="0"/></linearGradient></defs>';
+    var cx=W*(opt.cx||.78),cy=H*(opt.cy||.4);
+    for(var i=0;i<(opt.n||9);i++){
+      var rx=260+i*95+r()*40, ry=rx*(.26+r()*.08), rot=-16+r()*8;
+      s+='<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+rx.toFixed(0)+'" ry="'+ry.toFixed(0)+'" transform="rotate('+rot.toFixed(1)+' '+cx+' '+cy+')" fill="none" stroke="url(#'+(i%3===0?'g':'t')+seed+')" stroke-width="'+(i%3===0?1.6:1)+'"/>';
+    }
+    for(var j=0;j<(opt.stars||14);j++){
+      var x=r()*W,y=r()*H,rr=2+r()*r()*9;
+      s+='<path d="'+starPath(x.toFixed(1)*1,y.toFixed(1)*1,rr)+'" fill="#C9952A" fill-opacity="'+(.25+r()*.5).toFixed(2)+'"/>';
+    }
+    var d=document.createElement("div");d.className="art";d.innerHTML=s+"</svg>";el.insertBefore(d,el.firstChild);
+  }
+  var heroEl=document.querySelector(".hero");
+  if(heroEl) art(heroEl,7,{cx:.72,cy:.48,n:10,stars:18,h:760});
+  document.querySelectorAll(".page-head").forEach(function(el,i){art(el,11+i*7,{cx:.9,cy:.55,n:7,stars:10,h:420})});
+  document.querySelectorAll(".band-teal").forEach(function(el,i){art(el,51+i,{cx:.1,cy:.9,n:6,stars:8,a:.4,h:600})});
+  var ft=document.querySelector("footer"); if(ft) art(ft,91,{cx:.95,cy:.2,n:6,stars:8,a:.45,h:500});
+
+  /* ---------- Card tilt toward the pointer ---------- */
+  if(!reduce && matchMedia("(hover:hover)").matches){
+    document.querySelectorAll(".cap,.case,.creds .card").forEach(function(c){
+      c.addEventListener("pointermove",function(e){
+        var b=c.getBoundingClientRect(),px=(e.clientX-b.left)/b.width,py=(e.clientY-b.top)/b.height;
+        c.style.setProperty("--ry",((px-.5)*7).toFixed(2)+"deg");
+        c.style.setProperty("--rx",((.5-py)*7).toFixed(2)+"deg");
+        c.style.setProperty("--mx",(px*100).toFixed(1)+"%");
+        c.style.setProperty("--my",(py*100).toFixed(1)+"%");
+        c.classList.add("lit");
+      });
+      c.addEventListener("pointerleave",function(){c.style.setProperty("--rx","0deg");c.style.setProperty("--ry","0deg");c.classList.remove("lit")});
+    });
+  }
+
+  /* ---------- Hero globe: a dotted sphere (the O), a gold orbit (the swoosh), three satellites ---------- */
+  var stage=document.getElementById("orbit-stage");
+  if(stage){
+    var cv=stage.querySelector("canvas"),ctx=cv.getContext("2d"),W=0,H=0,dpr=1;
+    var SV=[
+      ["Strategy & implementation","Strategy","Assessments, options and a roadmap leaders can decide on, then oversight through implementation.","needs","See a sample needs assessment →"],
+      ["Business operations launch","Operations launch","SOPs, a responsibility matrix, orientation and onboarding so a new team runs the same way every day.","raci","See a sample responsibility matrix →"],
+      ["Digital health & technology","Digital health","Requirements, workflow maps, testing and adoption planning for new systems.","flow","See a sample workflow map →"],
+      ["Performance intelligence","Performance","KPI definitions and dashboards checked against the source data, with findings leaders can act on.","kpi","See a sample KPI scorecard →"],
+      ["Fractional strategy & PMO","Fractional PMO","Portfolio governance, weekly coordination and leadership reporting for a set number of hours a month.","port","See a sample portfolio tracker →"],
+      ["Healthcare location intelligence","Location intelligence","Coming soon. Market scans, maps and an opportunity scorecard for clinics and investors weighing a new site.","intel","Learn what to expect →"]];
+    var label=document.getElementById("orbit-label"),chipBox=document.getElementById("svc-chips"),capA=document.getElementById("orbit-cap-a"),target=null,NS=6;
+    var chips=SV.map(function(v,i){var b=document.createElement("button");b.type="button";b.setAttribute("aria-pressed","false");b.innerHTML="<span>"+v[1]+(i===5?"<em>Coming soon</em>":"")+"</span>";b.addEventListener("click",function(){setActive(i,true);rotT=0});chipBox.appendChild(b);return b});
+    var capB=document.getElementById("orbit-cap-b"),capS=document.getElementById("orbit-cap-s");
+    var N=reduce?520:760,pts=[],ga=Math.PI*(3-Math.sqrt(5));
+    for(var i=0;i<N;i++){var y=1-(i/(N-1))*2,rad=Math.sqrt(1-y*y),th=ga*i;pts.push([Math.cos(th)*rad,y,Math.sin(th)*rad])}
+    var rr=rng(23),sites=[];
+    for(var s2=0;s2<14;s2++) sites.push(pts[Math.floor(rr()*N)]);
+    var links=[];for(var l=0;l<9;l++){links.push([sites[l],sites[(l*5+3)%14],rr()])}
+    var yaw=.6,pitch=-.32,vy=reduce?0:.0026,dragging=false,lx=0,ly=0,tx=0,ty=0,active=0,t0=performance.now(),phase=.4;
+
+    function rot(p){
+      var cy=Math.cos(yaw),sy=Math.sin(yaw),x=p[0]*cy+p[2]*sy,z=-p[0]*sy+p[2]*cy,y=p[1];
+      var cp=Math.cos(pitch),sp=Math.sin(pitch),y2=y*cp-z*sp,z2=y*sp+z*cp;return [x,y2,z2];
+    }
+    function proj(p,R){var f=3.4,s=f/(f-p[2]);return [W/2+p[0]*R*s,H/2+p[1]*R*s,s]}
+    function slerp(a,b,t){
+      var d=a[0]*b[0]+a[1]*b[1]+a[2]*b[2];d=Math.max(-1,Math.min(1,d));var om=Math.acos(d),so=Math.sin(om)||1e-6;
+      var k1=Math.sin((1-t)*om)/so,k2=Math.sin(t*om)/so,h=1+.32*Math.sin(Math.PI*t)*om/2.2;
+      return [(a[0]*k1+b[0]*k2)*h,(a[1]*k1+b[1]*k2)*h,(a[2]*k1+b[2]*k2)*h];
+    }
+    /* orbit ring: fixed in view, tilted like the logo swoosh */
+    var tiltX=1.18,tiltZ=-.38,OR=1.5;
+    function ringPt(a){
+      var x=Math.cos(a)*OR,y=0,z=Math.sin(a)*OR;
+      var y1=y*Math.cos(tiltX)-z*Math.sin(tiltX),z1=y*Math.sin(tiltX)+z*Math.cos(tiltX);
+      var x2=x*Math.cos(tiltZ)-y1*Math.sin(tiltZ),y2=x*Math.sin(tiltZ)+y1*Math.cos(tiltZ);
+      return [x2,y2,z1];
+    }
+    function star(x,y,r,fill,glow){
+      var k=r*.2;ctx.beginPath();ctx.moveTo(x,y-r);ctx.bezierCurveTo(x+k,y-k,x+k,y-k,x+r,y);ctx.bezierCurveTo(x+k,y+k,x+k,y+k,x,y+r);ctx.bezierCurveTo(x-k,y+k,x-k,y+k,x-r,y);ctx.bezierCurveTo(x-k,y-k,x-k,y-k,x,y-r);ctx.closePath();
+      if(glow){ctx.shadowColor="rgba(201,149,42,.8)";ctx.shadowBlur=glow}ctx.fillStyle=fill;ctx.fill();ctx.shadowBlur=0;
+    }
+    function ring(R,front){
+      var seg=120;
+      for(var i=0;i<seg;i++){
+        var a=i/seg*Math.PI*2,b=(i+1)/seg*Math.PI*2,p=ringPt(a),q=ringPt(b);
+        if((p[2]>0)!==front) continue;
+        var P=proj(p,R),Q=proj(q,R),w=.6+2.6*Math.pow((Math.sin(a+2.2)+1)/2,2.2);
+        ctx.strokeStyle="rgba(201,149,42,"+(front?.9:.35)+")";ctx.lineWidth=w;ctx.lineCap="round";
+        ctx.beginPath();ctx.moveTo(P[0],P[1]);ctx.lineTo(Q[0],Q[1]);ctx.stroke();
+      }
+    }
+    function satPos(k){return ringPt(phase+k*Math.PI*2/NS)}
+    function draw(now){
+      var t=(now-t0)/1000,R=Math.min(W,H)*.3;
+      ctx.clearRect(0,0,W,H);
+      /* soft halo */
+      var g=ctx.createRadialGradient(W/2,H/2,R*.2,W/2,H/2,R*1.35);g.addColorStop(0,"rgba(238,245,245,.95)");g.addColorStop(1,"rgba(238,245,245,0)");
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(W/2,H/2,R*1.35,0,7);ctx.fill();
+      ring(R,false);
+      drawSats(R,false);
+      /* sphere dots */
+      for(var i=0;i<N;i++){
+        var p=rot(pts[i]),P=proj(p,R),d=(p[2]+1)/2;
+        ctx.fillStyle=p[2]>0?"rgba(11,32,52,"+(.25+.65*d).toFixed(3)+")":"rgba(11,77,87,"+(.08+.18*d).toFixed(3)+")";
+        var r=(p[2]>0?1.1+1.5*d:.9)*P[2];ctx.fillRect(P[0]-r/2,P[1]-r/2,r,r);
+      }
+      /* arcs between sites: travelling gold light */
+      for(var j=0;j<links.length;j++){
+        var L=links[j],prog=((t*.16+L[2])%1.25);
+        ctx.beginPath();var started=false;
+        for(var s=0;s<=28;s++){
+          var u=s/28;if(u>prog) break;
+          var q=rot(slerp(L[0],L[1],u));if(q[2]<-.15){started=false;continue}
+          var Q=proj(q,R);if(!started){ctx.moveTo(Q[0],Q[1]);started=true}else ctx.lineTo(Q[0],Q[1]);
+        }
+        ctx.strokeStyle="rgba(201,149,42,.75)";ctx.lineWidth=1.4;ctx.stroke();
+      }
+      for(var m=0;m<sites.length;m++){
+        var sp=rot(sites[m]);if(sp[2]<0) continue;var S=proj(sp,R),pulse=(t*.8+m*.37)%1;
+        ctx.strokeStyle="rgba(201,149,42,"+(.6*(1-pulse)).toFixed(3)+")";ctx.lineWidth=1;ctx.beginPath();ctx.arc(S[0],S[1],3+pulse*12,0,7);ctx.stroke();
+        ctx.fillStyle="#C9952A";ctx.beginPath();ctx.arc(S[0],S[1],2.6,0,7);ctx.fill();
+      }
+      ring(R,true);
+      drawSats(R,true);
+    }
+    function drawSats(R,front){
+      for(var k=0;k<NS;k++){
+        var p=satPos(k);if((p[2]>0)!==front) continue;
+        var P=proj(p,R),big=k===active;
+        star(P[0],P[1],(big?13:8)*P[2],big?"#C9952A":"rgba(201,149,42,"+(front?.95:.55)+")",big?14:0);
+        if(k!==active) continue;
+        var el=label;
+        var ew=el.offsetWidth||100,lx2=P[0]>W/2?P[0]+16:P[0]-16-ew;lx2=Math.max(2,Math.min(W-ew-2,lx2));
+        el.style.transform="translate("+lx2.toFixed(1)+"px,"+(P[1]-6).toFixed(1)+"px) translate(0,-50%)";
+        el.classList.toggle("back",!front);
+      }
+    }
+    function size(){
+      var b=stage.getBoundingClientRect();dpr=Math.min(window.devicePixelRatio||1,2);W=b.width;H=b.height;
+      cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw(performance.now());
+    }
+    function setActive(k,bring){
+      active=k;chips.forEach(function(c,i){c.setAttribute("aria-pressed",i===k?"true":"false")});
+      var v=SV[k];label.textContent=v[1];capB.textContent=v[0];capS.textContent=v[2];capA.textContent=v[4];
+      if(v[3]==="intel"){capA.href="#intelligence";capA.removeAttribute("data-sample")}else{capA.href="#services";capA.setAttribute("data-sample",v[3])}
+      var tp=Math.PI/2-k*Math.PI*2/NS,d=tp-phase;d=Math.atan2(Math.sin(d),Math.cos(d));target=phase+d;
+      if(reduce){phase=target;target=null;draw(performance.now())}
+    }
+    stage.addEventListener("pointerdown",function(e){dragging=true;lx=e.clientX;ly=e.clientY;stage.classList.add("drag");stage.setPointerCapture(e.pointerId)});
+    stage.addEventListener("pointermove",function(e){
+      if(dragging){var dx=e.clientX-lx,dy=e.clientY-ly;lx=e.clientX;ly=e.clientY;yaw+=dx*.008;pitch=Math.max(-1.1,Math.min(.6,pitch+dy*.006));vy=dx*.0006;if(reduce)draw(performance.now())}
+    });
+    function up(){dragging=false;stage.classList.remove("drag")}
+    stage.addEventListener("pointerup",up);stage.addEventListener("pointercancel",up);
+    var visible=true;
+    if("IntersectionObserver" in window){new IntersectionObserver(function(es){visible=es[0].isIntersecting}).observe(stage)}
+    var last=performance.now(),rotT=0;
+    function loop(now){
+      var dt=Math.min(50,now-last);last=now;
+      if(visible&&W>0){
+        if(!dragging){vy+=(.0026-vy)*.02;yaw+=vy*dt/16;}
+        if(target!==null){phase+=(target-phase)*Math.min(1,dt/260);if(Math.abs(target-phase)<.002)target=null}else phase+=.0009*dt/16;
+        rotT+=dt;if(rotT>7000&&!dragging){rotT=0;setActive((active+1)%NS)}
+        draw(now);
+      }
+      requestAnimationFrame(loop);
+    }
+    setActive(0);
+    if(window.ResizeObserver) new ResizeObserver(size).observe(stage); else window.addEventListener("resize",size);
+    size();
+    if(!reduce) requestAnimationFrame(loop);
+    window.__redrawOrbit=size;
+  }
+
+  /* ---------- Sample market scan (synthetic data) ---------- */
+  var map=document.getElementById("scan-map");
+  if(map){
+    var mc=map.querySelector("canvas"),mx=mc.getContext("2d"),MW=0,MH=0;
+    var r2=rng(97),centers=[],provs=[];
+    for(var c=0;c<6;c++) centers.push([.12+r2()*.8,.15+r2()*.75,.08+r2()*.12,.5+r2()*.6]);
+    for(var p2=0;p2<26;p2++){var cc=centers[Math.floor(r2()*4)];provs.push([cc[0]+(r2()-.5)*.22,cc[1]+(r2()-.5)*.22])}
+    for(var p3=0;p3<6;p3++) provs.push([r2(),r2()]);
+    function field(x,y){var v=0;for(var i=0;i<centers.length;i++){var C=centers[i],dx=x-C[0],dy=(y-C[1])*.62;v+=C[3]*Math.exp(-(dx*dx+dy*dy)/(2*C[2]*C[2]))}return Math.min(1,v)}
+    var site=[.66,.34],pinned=true,RAD=.15,hexes=[];
+    var readPop=document.getElementById("r-pop"),readProv=document.getElementById("r-prov"),readScore=document.getElementById("r-score"),meter=document.getElementById("r-meter"),verdict=document.getElementById("r-verdict");
+    function ramp(v){
+      var stops=[[244,248,248],[156,195,196],[11,77,87],[11,32,52]],x=v*3,i=Math.min(2,Math.floor(x)),f=x-i,a=stops[i],b=stops[i+1];
+      return "rgb("+Math.round(a[0]+(b[0]-a[0])*f)+","+Math.round(a[1]+(b[1]-a[1])*f)+","+Math.round(a[2]+(b[2]-a[2])*f)+")";
+    }
+    function build(){
+      hexes=[];var s=Math.max(9,MW/52),h=s*Math.sqrt(3);
+      for(var row=0,y=0;y<MH+h;row++,y=row*h*.5){for(var x=(row%2)*s*1.5;x<MW+s*2;x+=s*3){hexes.push([x,y,s,field(x/MW,y/MH)])}}
+    }
+    function hex(x,y,s){mx.beginPath();for(var k=0;k<6;k++){var a=Math.PI/3*k;mx.lineTo(x+s*.94*Math.cos(a),y+s*.94*Math.sin(a))}mx.closePath()}
+    function render(){
+      mx.clearRect(0,0,MW,MH);
+      for(var i=0;i<hexes.length;i++){var H2=hexes[i];hex(H2[0],H2[1],H2[2]);mx.fillStyle=ramp(H2[3]*.92);mx.fill()}
+      var sx=site[0]*MW,sy=site[1]*MH,rad=RAD*MW;
+      mx.save();mx.beginPath();mx.arc(sx,sy,rad,0,7);mx.fillStyle="rgba(201,149,42,.14)";mx.fill();
+      mx.setLineDash([6,5]);mx.strokeStyle="#C9952A";mx.lineWidth=2;mx.stroke();mx.restore();
+      var pop=0,cnt=0;
+      for(var j=0;j<hexes.length;j++){var q=hexes[j],dx=q[0]-sx,dy=q[1]-sy;if(dx*dx+dy*dy<rad*rad) pop+=q[3]}
+      for(var k=0;k<provs.length;k++){
+        var px=provs[k][0]*MW,py=provs[k][1]*MH,inside=(px-sx)*(px-sx)+(py-sy)*(py-sy)<rad*rad;if(inside)cnt++;
+        mx.beginPath();mx.arc(px,py,inside?5:4,0,7);mx.fillStyle="#FFFFFF";mx.fill();mx.lineWidth=2;mx.strokeStyle=inside?"#C9952A":"#0B2034";mx.stroke();
+      }
+      var k2=7,stR=14;mx.beginPath();mx.moveTo(sx,sy-stR);mx.bezierCurveTo(sx+3,sy-3,sx+3,sy-3,sx+stR,sy);mx.bezierCurveTo(sx+3,sy+3,sx+3,sy+3,sx,sy+stR);mx.bezierCurveTo(sx-3,sy+3,sx-3,sy+3,sx-stR,sy);mx.bezierCurveTo(sx-3,sy-3,sx-3,sy-3,sx,sy-stR);mx.closePath();
+      mx.fillStyle="#C9952A";mx.shadowColor="rgba(0,0,0,.25)";mx.shadowBlur=6;mx.fill();mx.shadowBlur=0;
+      var people=Math.round(pop*2600/1000)*1000,per=people/Math.max(cnt,.6);
+      var score=Math.max(4,Math.min(96,Math.round((Math.log10(Math.max(per,1000))-3.7)*62)));
+      window.__scan={people:people,cnt:cnt,per:per,score:score};
+      readPop.textContent=people>=1000?(people/1000).toFixed(0)+"k":people;
+      readProv.textContent=cnt;readScore.textContent=score;meter.style.width=score+"%";
+      verdict.textContent=score>=70?"Strong demand for the current supply. Worth a closer look at sites and payer mix.":score>=45?"Mixed signal. Competition is meaningful, so the case depends on a clear service gap.":"Crowded or thin market. Likely not worth the next round of diligence.";
+    }
+    function msize(){var b=map.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2);if(b.width<10)return;MW=b.width;MH=b.height;mc.width=Math.round(MW*d);mc.height=Math.round(MH*d);mx.setTransform(d,0,0,d,0,0);build();render()}
+    function at(e){var b=map.getBoundingClientRect();site=[Math.max(0,Math.min(1,(e.clientX-b.left)/b.width)),Math.max(0,Math.min(1,(e.clientY-b.top)/b.height))];render()}
+    map.addEventListener("pointermove",function(e){if(e.pointerType==="mouse"||e.buttons) at(e)});
+    map.addEventListener("pointerdown",function(e){at(e)});
+    map.addEventListener("keydown",function(e){var d={ArrowLeft:[-.02,0],ArrowRight:[.02,0],ArrowUp:[0,-.03],ArrowDown:[0,.03]}[e.key];if(!d)return;e.preventDefault();site=[Math.max(0,Math.min(1,site[0]+d[0])),Math.max(0,Math.min(1,site[1]+d[1]))];render()});
+    if(window.ResizeObserver) new ResizeObserver(msize).observe(map); else window.addEventListener("resize",msize);
+    msize();
+  }
+  window.addEventListener("hashchange",function(){setTimeout(function(){window.__redrawOrbit&&window.__redrawOrbit()},30)});
+})();
+</script>
+<script>
+(function(){
+  function $(id){return document.getElementById(id)}
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+
+  /* ---------- tabs ---------- */
+  var tabs=[].slice.call(document.querySelectorAll('.smp-tabs [role="tab"]'));
+  var flowDraw=function(){};
+  function select(id,focus){
+    tabs.forEach(function(t){
+      var on=t.id===id;t.setAttribute("aria-selected",on);t.tabIndex=on?0:-1;
+      $(t.getAttribute("aria-controls")).hidden=!on;
+      if(on&&focus)t.focus();
+    });
+    if(id==="t-flow") requestAnimationFrame(flowDraw);
+    if(id==="t-gantt"&&window.__ganttPlace) requestAnimationFrame(window.__ganttPlace);
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener("click",function(){select(t.id)});
+    t.addEventListener("keydown",function(e){
+      var d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();
+      select(tabs[(i+d+tabs.length)%tabs.length].id,true);
+    });
+  });
+  window.__showSample=function(key){
+    if(location.hash!=="#services") location.hash="#services";
+    setTimeout(function(){select("t-"+key);var s=$("samples");if(s)s.scrollIntoView({behavior:"smooth",block:"start"})},60);
+  };
+  document.addEventListener("click",function(e){
+    var a=e.target.closest("[data-sample]");if(!a)return;e.preventDefault();window.__showSample(a.getAttribute("data-sample"));
+  });
+
+  /* ---------- needs assessment matrix ---------- */
+  var needs=[
+    {n:"Missed appointments",i:4.6,e:1.8,ev:"22% of scheduled visits were no-shows in the last six months, against a 12% benchmark for similar clinics.",rec:"Two-way text reminders and same-week rebooking. Owner: front desk lead."},
+    {n:"Spanish-language intake",i:4.1,e:2.2,ev:"38% of new patients prefer Spanish. Intake forms and the phone menu are English only.",rec:"Translate intake forms and add a Spanish phone option before changing staffing."},
+    {n:"Wait for a new-patient visit",i:4.8,e:3.6,ev:"Median 24 days to the third available new-patient slot. Two providers hold 70% of new-patient capacity.",rec:"Rebalance templates across providers and add one weekly new-patient block."},
+    {n:"Paper intake forms",i:3.0,e:2.6,ev:"Staff spend an estimated 9 hours a week re-keying paper forms into the EHR.",rec:"Pilot the EHR vendor's online intake module with one provider first."},
+    {n:"Referral leakage to the ER",i:4.0,e:4.3,ev:"An estimated 1 in 6 referred patients visited the ER before their first appointment.",rec:"Create a nurse triage line for referred patients. Needs budget approval."},
+    {n:"No after-hours line",i:2.6,e:4.1,ev:"14% of voicemails arrive after 6 PM, and most ask about prescription refills.",rec:"Revisit after the triage line launches. Low priority for this cycle."}
+  ];
+  function quad(d){return d.i>=3.5&&d.e<3?["Quick win","q"]:d.i>=3.5?["Major project","m"]:d.e<3?["Fill-in","l"]:["Deprioritize","l"]}
+  var mtx=$("mtx"),card=$("need-card");
+  if(mtx){
+    var X=function(e){return 60+(e-1)/4*330},Y=function(i){return 290-(i-1)/4*260},s="";
+    s+='<rect x="60" y="30" width="165" height="130" fill="#E3F1EC" opacity=".55"/><rect x="225" y="30" width="165" height="130" fill="#FBF5E8"/><rect x="60" y="160" width="330" height="130" fill="#F7F7F5"/>';
+    s+='<line x1="225" y1="30" x2="225" y2="290" stroke="#E7E1D4"/><line x1="60" y1="160" x2="390" y2="160" stroke="#E7E1D4"/>';
+    s+='<line x1="60" y1="290" x2="390" y2="290" stroke="#5B6570"/><line x1="60" y1="30" x2="60" y2="290" stroke="#5B6570"/>';
+    s+='<text x="68" y="152" font-size="11" font-weight="600" style="fill:#1D6B4F">QUICK WINS</text><text x="382" y="152" font-size="11" font-weight="600" text-anchor="end" style="fill:#8A6414">MAJOR PROJECTS</text>';
+    s+='<text x="225" y="318" font-size="12" text-anchor="middle">Effort to address →</text><text transform="translate(26 160) rotate(-90)" font-size="12" text-anchor="middle">Impact on patients →</text>';
+    s+='<text x="60" y="306" font-size="10">Low</text><text x="390" y="306" font-size="10" text-anchor="end">High</text>';
+    needs.forEach(function(d,k){
+      s+='<g class="pt" tabindex="0" role="button" data-k="'+k+'" aria-label="'+d.n+'"><circle cx="'+X(d.e)+'" cy="'+Y(d.i)+'" r="14" fill="#0B2034"/><text x="'+X(d.e)+'" y="'+(Y(d.i)+4)+'" font-size="12" font-weight="700" text-anchor="middle" style="fill:#fff">'+(k+1)+'</text></g>';
+    });
+    mtx.innerHTML=s;
+    function show(k){
+      var d=needs[k],q=quad(d);
+      [].forEach.call(mtx.querySelectorAll(".pt circle"),function(c,j){c.setAttribute("fill",j===k?"#C9952A":"#0B2034")});
+      card.innerHTML='<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><h4>'+(k+1)+'. '+esc(d.n)+'</h4><span class="pill '+q[1]+'">'+q[0]+'</span></div><dl><div><dt>Evidence</dt><dd>'+esc(d.ev)+'</dd></div><div><dt>Recommendation</dt><dd>'+esc(d.rec)+'</dd></div><div><dt>Scores</dt><dd>Impact '+d.i.toFixed(1)+' of 5 · Effort '+d.e.toFixed(1)+' of 5</dd></div></dl>';
+    }
+    [].forEach.call(mtx.querySelectorAll(".pt"),function(g){
+      var k=+g.getAttribute("data-k");g.addEventListener("click",function(){show(k)});g.addEventListener("mouseenter",function(){show(k)});
+      g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();show(k)}});
+    });
+    show(0);
+  }
+
+  /* ---------- roadmap ---------- */
+  var road=$("road");
+  if(road){
+    var lanes=[["People",["Name the advising director and three leads","*Sponsor approves the staffing model"],["Hire two advisors","Train all advisors on the new case notes"],["*Staff confidence survey above 80%","Hand off ownership to the director"]],
+               ["Process",["Map current advising across five colleges","Agree on one referral pathway"],["*Approve the new advising SOPs","Pilot with the College of Health"],["Roll out to all colleges","*Go-live review with the provost"]],
+               ["Technology",["Confirm the advising system requirements"],["Configure scheduling and shared notes","Test with 20 students"],["Turn on early-alert flags"]],
+               ["Measurement",["Set the baseline: wait times and retention"],["Build the advising dashboard"],["*First monthly report to leadership"]]];
+    var h='<div class="h"></div><div class="h">Days 1–30 · Mobilize</div><div class="h">Days 31–60 · Build &amp; pilot</div><div class="h">Days 61–90 · Launch &amp; measure</div>';
+    lanes.forEach(function(L){h+='<div class="lane">'+L[0]+'</div>';for(var c=1;c<4;c++){h+='<div class="cell">'+L[c].map(function(t){return t[0]==="*"?'<div class="it ms"><span class="ms-ico"></span><span>'+esc(t.slice(1))+'</span></div>':'<div class="it">'+esc(t)+'</div>'}).join("")+'</div>'}});
+    road.innerHTML=h;
+  }
+
+  /* ---------- RACI ---------- */
+  var raci=$("raci");
+  if(raci){
+    var roles=["Practice owner","Office manager","Clinical director","HR & payroll vendor","Olira Group"];
+    var rows=[["Approve job descriptions","A","C","R","I","C"],["Post roles and screen applicants","I","R","C","I","A"],["Verify licenses and credentials","I","R","A","I","C"],["Set up payroll and benefits","A","C","I","R","I"],["Create EHR accounts and training","I","R","A","I","C"],["Run orientation day","I","R","C","I","A"],["Hold 30-day check-ins","I","C","A","I","R"]];
+    var h2='<thead><tr><th scope="col">Activity</th>'+roles.map(function(r,i){return '<th scope="col"><button type="button" data-c="'+(i+1)+'" aria-pressed="false">'+r+'</button></th>'}).join("")+'</tr></thead><tbody>';
+    rows.forEach(function(r){h2+='<tr><th scope="row" style="font-weight:500">'+r[0]+'</th>'+r.slice(1).map(function(v){return '<td><i class="rc '+v+'" title="'+{R:"Responsible",A:"Accountable",C:"Consulted",I:"Informed"}[v]+'">'+v+'</i></td>'}).join("")+'</tr>'});
+    raci.innerHTML=h2+"</tbody>";
+    var cur=0;
+    [].forEach.call(raci.querySelectorAll("thead button"),function(b){
+      b.addEventListener("click",function(){
+        var c=+b.getAttribute("data-c");cur=cur===c?0:c;
+        [].forEach.call(raci.querySelectorAll("thead button"),function(x){x.setAttribute("aria-pressed",+x.getAttribute("data-c")===cur)});
+        [].forEach.call(raci.querySelectorAll("tbody tr"),function(tr){
+          var cells=tr.children;for(var j=1;j<cells.length;j++)cells[j].classList.toggle("on",j===cur);
+          var v=cur?cells[cur].textContent:"";tr.classList.toggle("dim",cur&&(v==="I"));
+        });
+      });
+    });
+  }
+
+  /* ---------- workflow ---------- */
+  var flow=$("flow");
+  if(flow){
+    var lanesF=["Patient","Front desk","Clinician","EHR &amp; systems"];
+    var states={
+      cur:{steps:[[0,1,"Calls to book a visit"],[1,1,"Takes details by phone"],[0,2,"Fills paper forms in the lobby",1],[1,3,"Re-keys forms into the EHR",2],[3,4,"Chart is created"],[2,5,"Reviews chart, finds gaps",3]],
+           note:"Current state: three pain points. Forms are completed twice, re-keyed by hand (about 9 staff hours a week) and often incomplete when the clinician opens the chart."},
+      fut:{steps:[[0,1,"Books online or by phone"],[3,2,"Sends intake link by text",0,1],[0,3,"Completes forms on a phone"],[3,4,"Checks insurance and flags gaps",0,1],[1,4,"Resolves flagged exceptions only"],[2,5,"Reviews a complete chart",0,1]],
+           note:"Future state: forms are completed once, insurance is checked automatically and front desk time goes to exceptions. Target: under 2 staff hours a week on intake data entry."}
+    };
+    var mode="cur";
+    function drawFlow(){
+      var st=states[mode],h='';
+      for(var r=0;r<4;r++){h+='<div class="ln">'+lanesF[r]+'</div>';for(var c=1;c<=5;c++){var s=st.steps.filter(function(x){return x[0]===r&&x[1]===c})[0];h+='<div class="cl">'+(s?'<div class="st'+(s[3]?' pain':'')+(s[4]?' win':'')+'" data-o="'+st.steps.indexOf(s)+'">'+s[2]+(s[3]?'<span class="flag">'+s[3]+'</span>':'')+(s[4]?'<span class="flag">✓</span>':'')+'</div>':'')+'</div>'}}
+      flow.innerHTML=h+'<svg class="arrows" aria-hidden="true"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0B4D57"/></marker></defs></svg>';
+      $("flow-note").textContent=st.note;
+      flowDraw();
+    }
+    flowDraw=function(){
+      var svg=flow.querySelector("svg.arrows");if(!svg||!flow.offsetWidth)return;
+      var fb=flow.getBoundingClientRect(),els=[].slice.call(flow.querySelectorAll(".st")).sort(function(a,b){return a.getAttribute("data-o")-b.getAttribute("data-o")}),p="";
+      for(var i=0;i<els.length-1;i++){
+        var a=els[i].getBoundingClientRect(),b=els[i+1].getBoundingClientRect();
+        var x1=a.right-fb.left,y1=a.top+a.height/2-fb.top,x2=b.left-fb.left,y2=b.top+b.height/2-fb.top;
+        if(x2<x1+6){x1=a.left+a.width/2-fb.left;y1=(y2>y1?a.bottom:a.top)-fb.top;x2=b.left+b.width/2-fb.left;y2=(y2>y1?b.top:b.bottom)-fb.top;p+='<path d="M'+x1+' '+y1+'L'+x2+' '+y2+'" fill="none" stroke="#0B4D57" stroke-width="1.6" marker-end="url(#ah)"/>';continue}
+        var mx=(x1+x2)/2;p+='<path d="M'+x1+' '+y1+'C'+mx+' '+y1+' '+mx+' '+y2+' '+x2+' '+y2+'" fill="none" stroke="#0B4D57" stroke-width="1.6" marker-end="url(#ah)"/>';
+      }
+      svg.innerHTML=svg.innerHTML.split("</defs>")[0]+"</defs>"+p;
+    };
+    function setMode(m){mode=m;$("flow-cur").setAttribute("aria-pressed",m==="cur");$("flow-fut").setAttribute("aria-pressed",m==="fut");drawFlow()}
+    $("flow-cur").addEventListener("click",function(){setMode("cur")});$("flow-fut").addEventListener("click",function(){setMode("fut")});
+    window.addEventListener("resize",function(){flowDraw()});
+    drawFlow();
+  }
+
+  /* ---------- KPI scorecard ---------- */
+  var kpis=$("kpis");
+  if(kpis){
+    var locs={"All locations":[61,18,14,78],"Northside":[68,13,9,84],"Midtown":[57,21,19,76],"Bay Area":[64,16,12,81],"Westchase":[52,24,17,71]};
+    var defs=[["Referral conversion","%",70,true],["No-show rate","%",12,false],["Days to third next available","",7,false],["Clinician utilization","%",85,true]];
+    var segK=$("kpi-locs");
+    Object.keys(locs).forEach(function(n,i){var b=document.createElement("button");b.type="button";b.textContent=n;b.setAttribute("aria-pressed",i===0);b.addEventListener("click",function(){[].forEach.call(segK.children,function(x){x.setAttribute("aria-pressed",x===b)});drawK(n)});segK.appendChild(b)});
+    function drawK(n){
+      kpis.innerHTML=defs.map(function(d,i){
+        var v=locs[n][i],ratio=d[3]?v/d[2]:d[2]/v,cls=ratio>=.97?"good":ratio>=.8?"warn":"bad",lab=cls==="good"?"On target":cls==="warn"?"Near target":"Off target";
+        var w=Math.max(6,Math.min(100,ratio*100));
+        return '<div class="kpi"><span>'+d[0]+'</span><strong>'+v+d[1]+'</strong><div class="bar"><i class="'+cls+'" style="width:'+w.toFixed(0)+'%"></i></div><div class="tg"><i class="dot '+cls+'"></i>'+lab+' · target '+(d[3]?"≥ ":"≤ ")+d[2]+d[1]+'</div></div>';
+      }).join("");
+    }
+    drawK("All locations");
+  }
+
+  /* ---------- portfolio ---------- */
+  var port=$("port");
+  if(port){
+    var proj=[["EHR intake integration","Product lead","y",55,"Vendor API sign-off · Wk 7"],["Release 2.4","Engineering lead","g",45,"Sprint 3 starts · Wk 8"],["Customer onboarding playbook","Ops lead","g",80,"Final review · Wk 6"],["Security review (vendor-led)","CTO","y",30,"Pen test results · Wk 9"],["Hire two implementation specialists","CEO","g",60,"Final interviews · Wk 7"],["Payer contract data cleanup","Finance lead","r",20,"Recovery plan due · Wk 6"]];
+    var lab={g:"On track",y:"At risk",r:"Off track"},f="all",seg=$("port-f");
+    [["all","All"],["g","On track"],["y","At risk"],["r","Off track"]].forEach(function(o,i){var b=document.createElement("button");b.type="button";b.setAttribute("aria-pressed",i===0);b.textContent=o[1]+" ("+(o[0]==="all"?proj.length:proj.filter(function(p){return p[2]===o[0]}).length)+")";b.addEventListener("click",function(){f=o[0];[].forEach.call(seg.children,function(x){x.setAttribute("aria-pressed",x===b)});drawP()});seg.appendChild(b)});
+    function drawP(){
+      port.innerHTML='<thead><tr><th>Initiative</th><th>Owner</th><th>Status</th><th>Progress</th><th>Next milestone</th></tr></thead><tbody>'+proj.filter(function(p){return f==="all"||p[2]===f}).map(function(p){return '<tr><td style="color:var(--navy);font-weight:500">'+p[0]+'</td><td>'+p[1]+'</td><td><span class="st-p '+p[2]+'">'+lab[p[2]]+'</span></td><td><span class="pc"><i><b style="width:'+p[3]+'%"></b></i>'+p[3]+'%</span></td><td>'+p[4]+'</td></tr>'}).join("")+'</tbody>';
+    }
+    drawP();
+  }
+
+  /* ---------- gantt ---------- */
+  var g=$("gantt");
+  if(g){
+    var NOW=6,phases=[["Discovery",[["Stakeholder interviews",1,2,"Olira Group"],["Requirements and scope",2,3,"Product lead"],["*Scope sign-off",3.9,0,"CEO"]]],
+                       ["Build",[["Sprint 1",4,5,"Engineering lead"],["Sprint 2",6,7,"Engineering lead"],["Sprint 3",8,9,"Engineering lead"],["Onboarding playbook",4,6,"Ops lead"]]],
+                       ["Launch",[["User acceptance testing",9,10,"Product lead"],["Customer training",10,11,"Ops lead"],["*Go-live",11.5,0,"CEO"],["Hypercare",11,12,"Olira Group"]]]];
+    var h3='<div></div><div class="g-weeks">'+Array.from({length:12},function(_,i){return '<span>W'+(i+1)+'</span>'}).join("")+'</div>';
+    phases.forEach(function(P){
+      h3+='<div class="g-ph">'+P[0]+'</div>';
+      P[1].forEach(function(t){
+        var ms=t[0][0]==="*",name=ms?t[0].slice(1):t[0],left=((t[1]-1)/12*100),width=ms?0:((t[2]-t[1]+1)/12*100);
+        var done=!ms&&t[2]<NOW,pct=ms?0:Math.max(0,Math.min(1,(NOW-t[1]+.5)/(t[2]-t[1]+1)));
+        var tip=ms?name+": milestone in week "+Math.ceil(t[1])+". Owner: "+t[3]+".":name+": weeks "+t[1]+" to "+t[2]+". Owner: "+t[3]+". "+(done?"Complete.":pct>0?"In progress.":"Not started.");
+        h3+='<div class="g-name">'+(ms?'<span class="ms-ico" style="margin-right:6px"></span>':'')+name+'</div><div class="g-track"><button type="button" class="g-bar'+(ms?' ms':'')+(done?' done':'')+'" style="left:'+left+'%;width:'+width+'%" data-tip="'+tip+'" aria-label="'+tip+'">'+(!ms&&!done&&pct>0?'<i style="width:'+(pct*100).toFixed(0)+'%"></i>':'')+'</button></div>';
+      });
+    });
+    g.innerHTML=h3;
+    var tracks=g.querySelectorAll(".g-track");
+    var line=document.createElement("div");line.className="g-today";line.innerHTML="<span>TODAY</span>";
+    g.appendChild(line);
+    function placeLine(){var w=g.querySelector(".g-weeks");if(!w)return;var gb=g.getBoundingClientRect(),wb=w.getBoundingClientRect();line.style.left=(wb.left-gb.left+wb.width*((NOW-.5)/12))+"px";line.style.top=(wb.bottom-gb.top)+"px"}
+    placeLine();window.__ganttPlace=placeLine;window.addEventListener("resize",placeLine);
+    var tipEl=$("gantt-tip");
+    [].forEach.call(g.querySelectorAll(".g-bar"),function(b){var f=function(){tipEl.textContent=b.getAttribute("data-tip")};b.addEventListener("mouseenter",f);b.addEventListener("focus",f);b.addEventListener("click",f)});
+    document.querySelector('#t-gantt').addEventListener("click",function(){requestAnimationFrame(placeLine)});
+  }
+})();
+</script>
+<script>
+(function(){
+  var stage=document.getElementById("prism-stage");if(!stage)return;
+  var prism=document.getElementById("prism"),faces=[].slice.call(prism.querySelectorAll(".pf")),N=faces.length,step=360/N;
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var ang=0,idx=0,drag=false,sx=0,sa=0,moved=0,idle=0,last=performance.now();
+  var dots=faces.map(function(f,i){var b=document.createElement("button");b.type="button";b.setAttribute("aria-label",f.querySelector("h3").textContent);b.setAttribute("aria-pressed",i===0);b.addEventListener("click",function(){go(i);idle=0});document.getElementById("pn-dots").appendChild(b);return b});
+  function render(){prism.style.setProperty("--ry",ang+"deg")}
+  function mark(i){idx=((i%N)+N)%N;faces.forEach(function(f,j){f.setAttribute("aria-hidden",j===idx?"false":"true");[].forEach.call(f.querySelectorAll("a"),function(a){a.tabIndex=j===idx?0:-1})});dots.forEach(function(d,j){d.setAttribute("aria-pressed",j===idx)})}
+  function go(i,dir){
+    var target=-i*step,d=target-ang;d=((d%360)+540)%360-180;if(dir===1&&d>=0)d-=360;if(dir===-1&&d<=0)d+=360;
+    prism.classList.toggle("snap",!reduce);ang+=d;render();mark(i);
+  }
+  document.getElementById("pn-prev").addEventListener("click",function(){go(idx-1,-1);idle=0});
+  document.getElementById("pn-next").addEventListener("click",function(){go(idx+1,1);idle=0});
+  stage.addEventListener("keydown",function(e){if(e.key==="ArrowRight"){e.preventDefault();go(idx+1,1);idle=0}if(e.key==="ArrowLeft"){e.preventDefault();go(idx-1,-1);idle=0}});
+  stage.addEventListener("pointerdown",function(e){if(e.target.closest("a"))return;drag=true;moved=0;sx=e.clientX;sa=ang;prism.classList.remove("snap");stage.classList.add("drag");stage.setPointerCapture(e.pointerId)});
+  stage.addEventListener("pointermove",function(e){if(!drag)return;var dx=e.clientX-sx;moved=Math.max(moved,Math.abs(dx));ang=sa+dx*.45;render();mark(Math.round(-ang/step))});
+  function up(){if(!drag)return;drag=false;stage.classList.remove("drag");go(Math.round(-ang/step));idle=0}
+  stage.addEventListener("pointerup",up);stage.addEventListener("pointercancel",up);
+  stage.addEventListener("pointerenter",function(){idle=-1e9});stage.addEventListener("pointerleave",function(){idle=0});
+  stage.addEventListener("focusin",function(){idle=-1e9});stage.addEventListener("focusout",function(){idle=0});
+  mark(0);render();
+  if(!reduce){(function tick(now){var dt=now-last;last=now;if(!drag&&!document.hidden&&stage.offsetParent){idle+=dt;if(idle>5200){idle=0;go(idx+1,1)}}requestAnimationFrame(tick)})(last)}
+})();
+</script>
+<script>
+(function(){
+  var svg=document.getElementById("const-svg");if(!svg)return;
+  var NS="http://www.w3.org/2000/svg",reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var CX=260,CY=215;
+  var S=[
+    {x:130,y:100,n:"Strategy",t:"Strategy & implementation",d:"Assessments, options and a roadmap leaders can decide on, then oversight through implementation.",del:["Needs assessment","Options analysis","90-day roadmap"],k:"needs",l:"See a sample needs assessment"},
+    {x:315,y:62,n:"Operations launch",t:"Business operations launch",d:"SOPs, orientation and onboarding so a new team runs the same way every day.",del:["Admin SOPs","Responsibility matrix","Onboarding checklist"],k:"raci",l:"See a sample responsibility matrix"},
+    {x:445,y:185,n:"Digital health",t:"Digital health & technology",d:"Requirements, workflow design, testing and adoption planning for new systems.",del:["Requirements","Workflow maps","Testing plan"],k:"flow",l:"See a sample workflow map"},
+    {x:365,y:330,n:"Performance",t:"Performance intelligence",d:"KPI definitions and dashboards checked against your source data, with findings leaders can act on.",del:["KPI dictionary","Dashboards","Findings brief"],k:"kpi",l:"See a sample KPI scorecard"},
+    {x:165,y:345,n:"Fractional PMO",t:"Fractional strategy & PMO",d:"Portfolio governance, weekly coordination and leadership reporting for a set number of hours a month.",del:["Portfolio tracker","Gantt timeline","Leadership review"],k:"port",l:"See a sample portfolio tracker"},
+    {x:62,y:225,n:"Location intelligence",t:"Healthcare location intelligence",d:"Coming soon. Market scans, maps and an opportunity scorecard for clinics and investors weighing a new site.",del:["Market scan","Drive-time maps","Site scorecard"],k:"intel",l:"Learn what to expect",soon:1,ang:1.75}
+  ];
+  var links=[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,3],[1,3]];
+  function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e}
+  function star(x,y,r){var k=r*.2;return "M"+x+" "+(y-r)+"C"+(x+k)+" "+(y-k)+" "+(x+k)+" "+(y-k)+" "+(x+r)+" "+y+"C"+(x+k)+" "+(y+k)+" "+(x+k)+" "+(y+k)+" "+x+" "+(y+r)+"C"+(x-k)+" "+(y+k)+" "+(x-k)+" "+(y+k)+" "+(x-r)+" "+y+"C"+(x-k)+" "+(y-k)+" "+(x-k)+" "+(y-k)+" "+x+" "+(y-r)+"Z"}
+  var defs=el("defs",{});defs.innerHTML='<radialGradient id="cglow"><stop offset="0" stop-color="#C9952A" stop-opacity=".45"/><stop offset="1" stop-color="#C9952A" stop-opacity="0"/></radialGradient>';
+  /* far layer: twinkling dust */
+  var far=el("g",{"aria-hidden":"true"}),seed=41;function r(){seed=(seed*16807)%2147483647;return (seed-1)/2147483646}
+  for(var i=0;i<56;i++){var p=el("path",{d:star(-90+r()*690,-15+r()*460,1+r()*r()*3.5),"class":"tw"},far);p.style.setProperty("--d",(2.5+r()*4).toFixed(1)+"s");p.style.animationDelay=(-r()*5).toFixed(1)+"s"}
+  var mid=el("g",{"aria-hidden":"true"});
+  links.forEach(function(L){el("line",{x1:S[L[0]].x,y1:S[L[0]].y,x2:S[L[1]].x,y2:S[L[1]].y,"class":"c-link"},mid)});
+  var delG=el("g",{"aria-hidden":"true"}),front=el("g",{});
+  S.forEach(function(s,i){
+    var g=el("g",{"class":"c-del"},delG),base=s.ang!=null?s.ang:Math.atan2(s.y-CY,s.x-CX);
+    s.del.forEach(function(name,j){
+      var a=base+(j-1)*.72,R=74,x=s.x+Math.cos(a)*R,y=s.y+Math.sin(a)*R*.9;
+      el("line",{x1:s.x+Math.cos(a)*14,y1:s.y+Math.sin(a)*14,x2:x,y2:y},g);el("circle",{cx:x,cy:y,r:3.5},g);
+      var c=Math.cos(a),t=el("text",{x:x+(c>.3?7:c<-.3?-7:0),y:y+(Math.abs(c)<=.3?(Math.sin(a)>0?16:-9):4),"text-anchor":c>.3?"start":c<-.3?"end":"middle"},g);t.textContent=name;
+    });
+    s.dg=g;
+    var b=el("g",{"class":"c-svc",tabindex:"0",role:"button","aria-label":s.t+(s.soon?", coming soon":"")},front);
+    el("circle",{cx:s.x,cy:s.y,r:34,fill:"url(#cglow)","class":"halo"},b);
+    el("circle",{cx:s.x,cy:s.y,r:19,fill:"#FFFFFF","fill-opacity":".9",stroke:"#E7E1D4","class":"ring"},b);
+    var sp=el("path",{d:star(s.x,s.y,s.soon?11:13),fill:s.soon?"#FFFFFF":"#C9952A",stroke:"#C9952A","stroke-width":s.soon?1.6:0},b);
+    var up=Math.sin(base)>.3&&!s.soon,lab=el("text",{x:s.x,y:s.y+(up?(s.soon?-42:-28):36),"text-anchor":"middle","class":"c-name"},b);lab.textContent=s.n;
+    if(s.soon){var so=el("text",{x:s.x,y:s.y+(up?-28:50),"text-anchor":"middle","class":"c-soon"},b);so.textContent="COMING SOON"}
+    s.g=b;
+    b.addEventListener("mouseenter",function(){pick(i);hold=true});b.addEventListener("mouseleave",function(){hold=false;idle=0});
+    b.addEventListener("click",function(){pick(i);idle=0});
+    b.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();pick(i)}});
+    b.addEventListener("focus",function(){pick(i);hold=true});b.addEventListener("blur",function(){hold=false});
+  });
+  var cur=-1,hold=false,idle=0;
+  function pick(i){
+    if(i===cur)return;cur=i;var s=S[i];
+    S.forEach(function(o,j){o.g.classList.toggle("on",j===i);o.dg.classList.toggle("on",j===i)});
+    document.getElementById("cc-b").textContent=s.t;document.getElementById("cc-s").textContent=s.d;
+    var a=document.getElementById("cc-a");a.textContent=s.l+" →";
+    if(s.k==="intel"){a.href="#intelligence";a.removeAttribute("data-sample")}else{a.href="#services";a.setAttribute("data-sample",s.k)}
+  }
+  pick(0);
+  /* gentle parallax: dust, lines and stars shift by depth with the pointer */
+  var hero=svg.closest(".hero")||svg,tx=0,ty=0,cx=0,cy=0;
+  if(!reduce&&matchMedia("(hover:hover)").matches){
+    hero.addEventListener("pointermove",function(e){var b=svg.getBoundingClientRect();tx=((e.clientX-b.left)/b.width-.5);ty=((e.clientY-b.top)/b.height-.5)});
+    hero.addEventListener("pointerleave",function(){tx=0;ty=0});
+  }
+  var last=performance.now();
+  (function tick(now){
+    var dt=now-last;last=now;
+    if(svg.getBoundingClientRect().width>0){
+      cx+=(tx-cx)*.06;cy+=(ty-cy)*.06;
+      far.setAttribute("transform","translate("+(-cx*22).toFixed(2)+" "+(-cy*16).toFixed(2)+")");
+      mid.setAttribute("transform","translate("+(cx*6).toFixed(2)+" "+(cy*5).toFixed(2)+")");
+      front.setAttribute("transform","translate("+(cx*12).toFixed(2)+" "+(cy*9).toFixed(2)+")");
+      delG.setAttribute("transform","translate("+(cx*12).toFixed(2)+" "+(cy*9).toFixed(2)+")");
+      if(!reduce&&!hold){idle+=dt;if(idle>6000){idle=0;pick((cur+1)%S.length)}}
+    }
+    requestAnimationFrame(tick);
+  })(last);
+})();
+</script>
+<script>(function(){
+  var form=document.getElementById("inq");if(!form)return;
+  var ok=document.getElementById("q-ok"),btn=document.getElementById("q-send"),t0=Date.now();
+  var AT="https://airtable.com/appYu5L6nbc3oPR2S/pag2ANrxYYeiNnLqP/form";
+  
+  function say(html,kind){ok.innerHTML=html;ok.className="ok "+(kind||"");ok.hidden=false}
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var bad=null;
+    [].forEach.call(form.querySelectorAll("input,select,textarea"),function(i){i.removeAttribute("aria-invalid")});
+    [].some.call(form.querySelectorAll("[required]"),function(i){
+      var v=i.value.trim();
+      if(!v||(i.type==="email"&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))){bad=i;return true}
+    });
+    if(bad){bad.setAttribute("aria-invalid","true");say("Please complete <b>"+bad.closest("label").childNodes[0].textContent.trim()+"</b>.","warn");bad.focus();return}
+    var data={elapsed:Date.now()-t0};
+    [].forEach.call(form.elements,function(el){if(el.name)data[el.name]=el.value});
+    btn.disabled=true;btn.textContent="Sending…";
+    fetch("/api/inquiry",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)})
+      .then(function(r){return r.json().catch(function(){return {ok:false}}).then(function(j){if(!r.ok||!j.ok)throw j;return j})})
+      .then(function(){form.reset();say("<b>Thank you.</b> Your inquiry was received. We will follow up to schedule a discovery call.","good");btn.textContent="Sent"})
+      .catch(function(j){btn.disabled=false;btn.textContent="Send inquiry";
+        j=j||{};var code=j.error||"network";if(j.status)code+=" "+j.status;if(j.type)code+=" "+j.type;
+        var why={not_configured:"The form's Airtable connection is not set up yet.",airtable:"Airtable did not accept the entry.",missing:"Some required answers are missing.",origin:"This page is not allowed to send to the form.",too_fast:"Please take a moment and try again.",network:"The form service could not be reached."}[j.error||"network"]||"";
+        var esc=function(t){return String(t).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})};
+        say('Your inquiry could not be sent from this page. Please use our <a href="'+AT+'" target="_blank" rel="noopener">backup inquiry form</a> or email <a href="mailto:contact@oliragroup.com">contact@oliragroup.com</a>.<br><span class="small">'+esc(why)+' Code: '+esc(code)+(j.message?' · '+esc(j.message):'')+'</span>',"warn")});
+  });
+})();
+</script>
+
+
+</body>
+</html>
