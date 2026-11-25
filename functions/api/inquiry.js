@@ -26,6 +26,29 @@ const FIELDS = {
   source: ["How did you hear about us?", true],
 };
 
+
+// Find the Airtable token even if the variable name has stray spaces or different capitals.
+function findToken(env) {
+  if (env.AIRTABLE_TOKEN) return String(env.AIRTABLE_TOKEN).trim();
+  for (const k of Object.keys(env || {})) {
+    const n = k.trim().toUpperCase().replace(/[^A-Z]/g, "");
+    if (n.includes("AIRTABLE") && /(TOKEN|KEY|PAT)/.test(n) && typeof env[k] === "string") return env[k].trim();
+  }
+  return "";
+}
+
+// GET /api/inquiry: setup check. Shows variable NAMES only, never their values.
+export async function onRequestGet({ env }) {
+  const names = Object.keys(env || {}).filter((k) => typeof env[k] === "string");
+  const tok = findToken(env);
+  return new Response(JSON.stringify({
+    connector: "olira-inquiry v3",
+    token_found: Boolean(tok),
+    token_looks_like_airtable_pat: /^pat[A-Za-z0-9]{10,}\./.test(tok),
+    variable_names: names,
+  }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+}
+
 function json(body, status, origin) {
   return new Response(JSON.stringify(body), {
     status,
@@ -60,7 +83,8 @@ export async function onRequestOptions({ request, env }) {
 export async function onRequestPost({ request, env }) {
   const origin = allowedOrigin(request, env);
   if (!origin && request.headers.get("origin")) return json({ ok: false, error: "origin" }, 403);
-  if (!env.AIRTABLE_TOKEN) return json({ ok: false, error: "not_configured" }, 503, origin);
+  const TOKEN = findToken(env);
+  if (!TOKEN) return json({ ok: false, error: "not_configured" }, 503, origin);
 
   let data;
   try { data = await request.json(); } catch { return json({ ok: false, error: "bad_request" }, 400, origin); }
@@ -87,7 +111,7 @@ export async function onRequestPost({ request, env }) {
   const table = encodeURIComponent(env.AIRTABLE_TABLE || DEFAULT_TABLE);
   const send = (f) => fetch(`https://api.airtable.com/v0/${base}/${table}`, {
     method: "POST",
-    headers: { authorization: `Bearer ${env.AIRTABLE_TOKEN}`, "content-type": "application/json" },
+    headers: { authorization: `Bearer ${TOKEN}`, "content-type": "application/json" },
     body: JSON.stringify({ records: [{ fields: f }], typecast: true }),
   });
   let res = await send(fields);
