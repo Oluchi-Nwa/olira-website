@@ -42,7 +42,7 @@ export async function onRequestGet({ env }) {
   const names = Object.keys(env || {}).filter((k) => typeof env[k] === "string");
   const tok = findToken(env);
   return new Response(JSON.stringify({
-    connector: "olira-inquiry v8",
+    connector: "olira-inquiry v9",
     deployed_commit: String(env.CF_PAGES_COMMIT_SHA || "").slice(0, 7),
     token_length: tok.length,
     raw_value_length: typeof env.AIRTABLE_TOKEN === "string" ? env.AIRTABLE_TOKEN.length : null,
@@ -102,7 +102,7 @@ async function handlePost({ request, env }) {
   try { data = await request.json(); } catch { return json({ ok: false, error: "bad_request" }, 400, origin); }
 
   // Spam traps: hidden field must stay empty, and the form must take more than 3 seconds to fill.
-  if ((data.company_fax || "").trim()) return json({ ok: true }, 200, origin);
+  if ((data.zq_hp_8274 || data.company_fax || "").trim()) { console.warn("Inquiry dropped by spam trap"); return json({ ok: true, ref: null }, 200, origin); }
   if (Number(data.elapsed || 0) < 3000) return json({ ok: false, error: "too_fast" }, 400, origin);
 
   const values = {}; // form key -> cleaned value
@@ -157,7 +157,9 @@ async function handlePost({ request, env }) {
     console.error("Airtable error", res.status, type, message);
     return json({ ok: false, error: "airtable", status: res.status, type: String(type), message: String(message).slice(0, 300) }, 200, origin);
   }
-  return json({ ok: true, dropped }, 200, origin);
+  let ref = null;
+  try { ref = ((await res.json()).records || [])[0]?.id || null; } catch {}
+  return json({ ok: true, ref, dropped }, 200, origin);
 }
 
 const LABELS = {

@@ -1109,7 +1109,7 @@ body{margin:0}
               <option value="">Choose one</option><option>Referral</option><option>LinkedIn</option><option>Search engine</option><option>Event or conference</option><option>Partner or prime contractor</option><option>Other</option>
             </select>
           </label>
-          <div class="hp" aria-hidden="true"><label for="q-fax">Leave this field empty<input id="q-fax" name="company_fax" tabindex="-1" autocomplete="off"></label></div>
+          <div class="hp" aria-hidden="true"><label for="q-fax">Leave this field empty<input id="q-fax" name="zq_hp_8274" tabindex="-1" autocomplete="off"></label></div>
           <button class="btn btn-teal" type="submit" id="q-send">Send inquiry</button>
           <p class="ok" id="q-ok" role="status" hidden></p>
           <p class="small">Prefer email? Write to <a href="mailto:contact@oliragroup.com">contact@oliragroup.com</a>.</p>
@@ -1735,7 +1735,7 @@ body{margin:0}
     btn.disabled=true;btn.textContent="Sending…";
     fetch("/api/inquiry",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)})
       .then(function(r){return r.json().catch(function(){return {ok:false,error:"network",status:r.status,message:(r.headers.get("content-type")||"no content type")}}).then(function(j){if(!r.ok||!j.ok)throw j;return j})})
-      .then(function(){form.reset();say("<b>Thank you.</b> Your inquiry was received. We will follow up to schedule a discovery call.","good");btn.textContent="Sent"})
+      .then(function(j){form.reset();say("<b>Thank you.</b> Your inquiry was received. We will follow up to schedule a discovery call."+(j.ref?"<br><span class=\"small\">Reference: "+j.ref+"</span>":""),"good");btn.textContent="Sent"})
       .catch(function(j){btn.disabled=false;btn.textContent="Send inquiry";
         j=j||{};var code=j.error||"network";if(j.status)code+=" "+j.status;if(j.type)code+=" "+j.type;
         var why={not_configured:"The form's Airtable connection is not set up yet.",airtable:"Airtable did not accept the entry.",missing:"Some required answers are missing.",origin:"This page is not allowed to send to the form.",too_fast:"Please take a moment and try again.",network:"The form service could not be reached.",exception:"The form service hit an error."}[j.error||"network"]||"";
