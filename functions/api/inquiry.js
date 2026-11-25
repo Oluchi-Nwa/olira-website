@@ -42,13 +42,14 @@ export async function onRequestGet({ env }) {
   const names = Object.keys(env || {}).filter((k) => typeof env[k] === "string");
   const tok = findToken(env);
   return new Response(JSON.stringify({
-    connector: "olira-inquiry v7",
+    connector: "olira-inquiry v8",
     deployed_commit: String(env.CF_PAGES_COMMIT_SHA || "").slice(0, 7),
     token_length: tok.length,
     raw_value_length: typeof env.AIRTABLE_TOKEN === "string" ? env.AIRTABLE_TOKEN.length : null,
     token_found: Boolean(tok),
     token_looks_like_airtable_pat: /^pat[A-Za-z0-9]{10,}\./.test(tok),
     variable_names: names,
+    airtable_columns: tok ? await tableFieldNames(env.AIRTABLE_BASE_ID || DEFAULT_BASE, env.AIRTABLE_TABLE || DEFAULT_TABLE, { authorization: `Bearer ${tok}` }) : null,
   }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
 }
 
@@ -105,44 +106,138 @@ async function handlePost({ request, env }) {
   if ((data.company_fax || "").trim()) return json({ ok: true }, 200, origin);
   if (Number(data.elapsed || 0) < 3000) return json({ ok: false, error: "too_fast" }, 400, origin);
 
-  const fields = {};
+  const values = {}; // form key -> cleaned value
   const missing = [];
-  for (const [key, [column, required]] of Object.entries(FIELDS)) {
+  for (const [key, [, required]] of Object.entries(FIELDS)) {
     let v = typeof data[key] === "string" ? data[key].trim().slice(0, 5000) : "";
     if (!v) { if (required) missing.push(key); continue; }
     if (key === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { missing.push(key); continue; }
     if (key === "website" && !/^https?:\/\//i.test(v)) v = "https://" + v;
-    fields[column] = v;
+    values[key] = v;
   }
   if (missing.length) return json({ ok: false, error: "missing", fields: missing }, 400, origin);
-
-  fields["Submission Date"] = new Date().toISOString().slice(0, 10);
-  fields["Lead Status"] = "New";
+  values.submitted = new Date().toISOString().slice(0, 10);
+  values.status = "New";
 
   const base = env.AIRTABLE_BASE_ID || DEFAULT_BASE;
-  const table = encodeURIComponent(env.AIRTABLE_TABLE || DEFAULT_TABLE);
-  const send = (f) => fetch(`https://api.airtable.com/v0/${base}/${table}`, {
+  const tableId = env.AIRTABLE_TABLE || DEFAULT_TABLE;
+  const url = `https://api.airtable.com/v0/${base}/${encodeURIComponent(tableId)}`;
+  const auth = { authorization: `Bearer ${TOKEN}` };
+
+  // Match the form's answers to the table's real column names.
+  const known = await tableFieldNames(base, tableId, auth);
+  const { fields, unmatched } = mapToColumns(values, known);
+  // Anything that found no column goes into a notes-style column, if the table has one.
+  const notesCol = known && known.find((n) => /note|comment|message|detail/i.test(n) && !Object.keys(fields).includes(n));
+  if (unmatched.length && notesCol) {
+    fields[notesCol] = unmatched.map((k) => `${LABELS[k] || k}: ${values[k]}`).join("\n");
+  }
+
+  const send = (f) => fetch(url, {
     method: "POST",
-    headers: { authorization: `Bearer ${TOKEN}`, "content-type": "application/json" },
+    headers: { ...auth, "content-type": "application/json" },
     body: JSON.stringify({ records: [{ fields: f }], typecast: true }),
   });
-  let res = await send(fields);
-  let err = null;
-  if (!res.ok) {
+  let res, err = null;
+  const dropped = [];
+  // Retry up to 15 times, removing any single column Airtable says it does not know or cannot accept.
+  for (let i = 0; i < 15; i++) {
+    res = await send(fields);
+    if (res.ok) break;
     try { err = (await res.json()).error || null; } catch { err = null; }
-    // If the two automatic fields are computed or named differently in Airtable, retry without them.
-    if (res.status === 422) {
-      delete fields["Submission Date"];
-      delete fields["Lead Status"];
-      res = await send(fields);
-      if (!res.ok) { try { err = (await res.json()).error || err; } catch {} }
-    }
+    if (res.status !== 422 || !err || !err.message) break;
+    const m = String(err.message).match(/(?:Unknown field name|Field)\s*:?\s*"([^"]+)"/i);
+    if (!m || !(m[1] in fields)) break;
+    dropped.push(m[1]);
+    delete fields[m[1]];
   }
+  if (dropped.length) console.warn("Inquiry saved without columns:", dropped.join(", "));
   if (!res.ok) {
     const type = (err && (err.type || err)) || "unknown";
     const message = (err && err.message) || "";
     console.error("Airtable error", res.status, type, message);
     return json({ ok: false, error: "airtable", status: res.status, type: String(type), message: String(message).slice(0, 300) }, 200, origin);
   }
-  return json({ ok: true }, 200, origin);
+  return json({ ok: true, dropped }, 200, origin);
 }
+
+const LABELS = {
+  name: "Name", organization: "Organization", jobTitle: "Job title", email: "Email", phone: "Phone",
+  website: "Website", service: "Service of interest", goal: "Goal", success: "Success looks like",
+  budget: "Budget", startDate: "Desired start", source: "Heard about us via", submitted: "Submitted", status: "Status",
+};
+
+// Possible column names for each answer, best first.
+const ALIASES = {
+  name: ["Name", "Full Name", "Contact Name", "Client Name", "Contact"],
+  organization: ["Organization", "Organization Name", "Company", "Company Name", "Organisation"],
+  jobTitle: ["Job Title", "Title", "Role", "Position"],
+  email: ["Email Address", "Email", "E-mail"],
+  phone: ["Phone Number", "Phone", "Mobile"],
+  website: ["Company Website", "Website", "URL"],
+  service: ["Service of Interest", "Service", "Services", "Service Line"],
+  goal: ["What are you hoping to accomplish?", "Goal", "Goals", "Objective"],
+  success: ["What would success look like?", "Success", "Success Criteria"],
+  budget: ["Estimated Budget (optional)", "Estimated Budget", "Budget"],
+  startDate: ["Desired Start Date", "Start Date", "Timeline", "Timeframe"],
+  source: ["How did you hear about us?", "Lead Source", "Source", "Referral Source"],
+  submitted: ["Submission Date", "Date Submitted", "Submitted", "Date Received", "Inquiry Date"],
+  status: ["Lead Status", "Status", "Stage"],
+};
+
+const norm = (s) => String(s).toLowerCase().replace(/\(optional\)/g, "").replace(/[^a-z0-9]/g, "");
+
+function mapToColumns(values, known) {
+  const fields = {}, unmatched = [];
+  if (!known || !known.length) {
+    for (const [k, v] of Object.entries(values)) fields[ALIASES[k][0]] = v;
+    return { fields, unmatched };
+  }
+  const used = new Set();
+  const pick = {};
+  // Pass 1: exact matches, ignoring case, spaces, punctuation and "(optional)".
+  for (const k of Object.keys(values)) {
+    for (const a of ALIASES[k]) {
+      const hit = known.find((n) => !used.has(n) && norm(n) === norm(a));
+      if (hit) { pick[k] = hit; used.add(hit); break; }
+    }
+  }
+  // Pass 2: close matches, where the column name contains a longer alias.
+  for (const k of Object.keys(values)) {
+    if (pick[k]) continue;
+    for (const a of ALIASES[k]) {
+      const na = norm(a);
+      if (na.length < 5) continue;
+      const hit = known.find((n) => !used.has(n) && norm(n).includes(na));
+      if (hit) { pick[k] = hit; used.add(hit); break; }
+    }
+  }
+  for (const [k, v] of Object.entries(values)) {
+    if (pick[k]) fields[pick[k]] = v;
+    else if (k !== "status" && k !== "submitted") unmatched.push(k);
+  }
+  return { fields, unmatched };
+}
+
+// The table's column names: from the schema if the token allows it, else from existing records.
+async function tableFieldNames(base, tableId, auth) {
+  try {
+    const r = await fetch(`https://api.airtable.com/v0/meta/bases/${base}/tables`, { headers: auth });
+    if (r.ok) {
+      const j = await r.json();
+      const t = (j.tables || []).find((t) => t.id === tableId || t.name === tableId);
+      if (t) return t.fields.map((f) => f.name);
+    }
+  } catch {}
+  try {
+    const r = await fetch(`https://api.airtable.com/v0/${base}/${encodeURIComponent(tableId)}?pageSize=100`, { headers: auth });
+    if (r.ok) {
+      const j = await r.json();
+      const names = new Set();
+      for (const rec of j.records || []) for (const n of Object.keys(rec.fields || {})) names.add(n);
+      if (names.size) return [...names];
+    }
+  } catch {}
+  return null;
+}
+
